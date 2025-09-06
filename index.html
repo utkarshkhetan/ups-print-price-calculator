@@ -149,7 +149,7 @@
             position: fixed;
             bottom: 15px;
             right: 20px;
-            font-size: 0.94rem;
+            font-size: 0.893rem;
             color: var(--gray-600);
             font-weight: 500;
             z-index: 1000;
@@ -697,12 +697,13 @@
         
         .section-subtitle {
             color: var(--primary-navy);
-            font-size: 2.1rem;
+            font-size: 2.3rem;
             font-weight: 600;
             margin-top: 0;
             margin-bottom: var(--space-xl);
             text-align: center;
         }
+
 
         .color-buttons {
             display: flex;
@@ -821,14 +822,30 @@
         .dimension-grid {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: var(--space-xl);
-            margin: var(--space-xl) 0;
+            align-items: flex-start;
+            gap: var(--space-2xl);
+            margin: var(--space-2xl) 0 var(--space-md) 0;
             flex-wrap: wrap;
+            padding: var(--space-lg) 0;
         }
 
         .dimension-input-group {
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .dimension-units {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .dimension-units .units-btn {
+            padding: var(--space-sm) var(--space-md);
+            font-size: 0.9rem;
         }
 
         .dimension-label {
@@ -866,6 +883,8 @@
             font-weight: 700;
             color: var(--primary-blue);
             margin: 0 var(--space-sm);
+            align-self: center;
+            margin-top: 2rem;
         }
 
         /* Units Selection Grid */
@@ -912,7 +931,8 @@
 
         /* Foam Core Option Enhancement */
         .foam-core-section {
-            margin: var(--space-2xl) 0 var(--space-xl) 0;
+            margin-top: 0;
+            margin-bottom: var(--space-2xl);
             padding: var(--space-lg);
             background: linear-gradient(135deg, var(--surface-blue), #f0f8ff);
             border-radius: var(--radius-lg);
@@ -965,6 +985,175 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+
+        /* Galaga Game Styles */
+        .galaga-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .galaga-canvas {
+            border: 2px solid var(--primary-blue);
+            border-radius: var(--radius-lg);
+            background: #000;
+            box-shadow: 0 0 50px rgba(52, 152, 219, 0.3);
+        }
+
+        .galaga-ui {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .galaga-ui > * {
+            pointer-events: all;
+        }
+
+        .galaga-header {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: var(--space-xl);
+            background: rgba(0, 0, 0, 0.8);
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--primary-blue);
+        }
+
+        .galaga-score, .galaga-level, .galaga-lives {
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-shadow: 0 0 10px var(--primary-blue);
+        }
+
+        .galaga-instructions, .galaga-pause, .galaga-game-over, .galaga-celebration, .galaga-leaderboard {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: var(--space-2xl);
+            border-radius: var(--radius-xl);
+            border: 2px solid var(--primary-blue);
+            text-align: center;
+            color: var(--white);
+            box-shadow: 0 0 30px rgba(52, 152, 219, 0.5);
+        }
+
+        .galaga-instructions h2, .galaga-pause h2, .galaga-game-over h2, .galaga-celebration h2, .galaga-leaderboard h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-lg);
+            text-shadow: 0 0 20px var(--primary-blue);
+        }
+
+        .galaga-start-btn, .galaga-submit-score, .galaga-play-again, .galaga-close-leaderboard {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+            border: none;
+            border-radius: var(--radius-lg);
+            color: var(--white);
+            font-size: 1.4rem;
+            font-weight: 600;
+            padding: var(--space-md) var(--space-xl);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin: var(--space-sm);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .galaga-start-btn:hover, .galaga-submit-score:hover, .galaga-play-again:hover, .galaga-close-leaderboard:hover {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--primary-navy) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.6);
+        }
+
+        .galaga-player-name {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--primary-blue);
+            border-radius: var(--radius-md);
+            color: var(--white);
+            font-size: 1.2rem;
+            padding: var(--space-md);
+            text-align: center;
+            margin: var(--space-lg);
+            width: 200px;
+        }
+
+        .galaga-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: bold;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .galaga-close-btn:hover {
+            background: rgba(255, 0, 0, 1);
+            transform: scale(1.1);
+        }
+
+        .celebration-images {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+            margin: var(--space-xl) 0;
+        }
+
+        .celebration-img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            animation: celebrationBounce 0.6s ease-in-out infinite alternate;
+        }
+
+        .celebration-2 {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes celebrationBounce {
+            from { transform: translateY(0) scale(1); }
+            to { transform: translateY(-20px) scale(1.1); }
+        }
+
+        .galaga-leaderboard ol {
+            text-align: left;
+            margin: var(--space-lg) 0;
+            padding: 0 var(--space-xl);
+        }
+
+        .galaga-leaderboard li {
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.3);
+            font-size: 1.1rem;
+        }
+
+        .galaga-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+        }
+
+        .galaga-btn:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%) !important;
         }
 
         .calculate-btn, .back-btn, .reset-btn {
@@ -1384,11 +1573,18 @@
 
         .bc-dynamic-title {
             color: var(--primary-navy);
-            font-size: 2.4rem;
+            font-size: 2.1rem;
             font-weight: 600;
             text-align: center;
             margin-bottom: var(--space-lg);
+            padding-top: var(--space-md);
             padding-bottom: var(--space-md);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .bc-pricing-table {
@@ -1896,7 +2092,7 @@
             }
 
             .footer-text {
-                font-size: 0.9rem;
+                font-size: 0.855rem;
                 bottom: 10px;
                 right: 15px;
                 padding: var(--space-xs) var(--space-sm);
@@ -2010,7 +2206,7 @@
             }
 
             .footer-text {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
         }
 
@@ -2238,6 +2434,60 @@
     <!-- Secret Fireworks Container -->
     <div id="fireworksContainer" class="fireworks-container" style="display: none;"></div>
     
+    <!-- Galaga Game Overlay -->
+    <div id="galagaGameOverlay" class="galaga-overlay" style="display: none;">
+        <canvas id="galagaCanvas" class="galaga-canvas"></canvas>
+        
+        <!-- Game UI Elements -->
+        <div class="galaga-ui">
+            <div class="galaga-header">
+                <div class="galaga-score">Score: <span id="galagaScore">0</span></div>
+                <div class="galaga-level">Level: <span id="galagaLevel">1</span></div>
+                <div class="galaga-lives">Lives: <span id="galagaLives">3</span></div>
+            </div>
+            
+            <div class="galaga-instructions" id="galagaInstructions">
+                <h2>🚀 GALAGA 🚀</h2>
+                <p>Arrow Keys: Move • Spacebar: Shoot • P: Pause • ESC: Exit</p>
+                <button class="galaga-start-btn" onclick="initGalagaGame()">START GAME</button>
+                <button class="galaga-start-btn" onclick="showGalagaLeaderboard()" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">VIEW LEADERBOARD</button>
+            </div>
+            
+            <div class="galaga-pause" id="galagaPause" style="display: none;">
+                <h2>⏸️ PAUSED</h2>
+                <p>Press P to resume</p>
+            </div>
+            
+            <div class="galaga-game-over" id="galagaGameOver" style="display: none;">
+                <h2>🎮 GAME OVER 🎮</h2>
+                <div class="galaga-final-score">Final Score: <span id="galagaFinalScore">0</span></div>
+                <input type="text" id="galagaPlayerName" placeholder="Enter your name" maxlength="20">
+                <button class="galaga-submit-score" onclick="submitGalagaScore()">Submit Score</button>
+                <button class="galaga-play-again" onclick="restartGalagaGame()">Play Again</button>
+            </div>
+            
+            <div class="galaga-celebration" id="galagaCelebration" style="display: none;">
+                <h2>🎉 LEVEL COMPLETE! 🎉</h2>
+                <div class="celebration-images">
+                    <img src="celebration-1.png" class="celebration-img celebration-1" alt="Celebration 1">
+                    <img src="celebration-2.png" class="celebration-img celebration-2" alt="Celebration 2">
+                </div>
+                <div class="celebration-score">Level Score: <span id="celebrationScore">0</span></div>
+            </div>
+            
+            <div class="galaga-leaderboard" id="galagaLeaderboard" style="display: none;">
+                <h2>🏆 HIGH SCORES 🏆</h2>
+                <ol id="galagaLeaderboardList"></ol>
+                <div id="galagaLeaderboardButtons">
+                    <button class="galaga-play-again" onclick="restartFromLeaderboard()" id="galagaPlayAgainBtn" style="display: none;">Play Again</button>
+                    <button class="galaga-close-leaderboard" onclick="hideGalagaLeaderboard()">Close</button>
+                </div>
+            </div>
+        </div>
+        
+        <button class="galaga-close-btn" onclick="closeGalagaGame()" title="Close Game">×</button>
+    </div>
+    
     <!-- Header -->
     <div class="header sidebar-open">
         <div class="header-content sidebar-open">
@@ -2294,6 +2544,12 @@
             <div class="export-info" id="exportInfo">
                 <small id="exportStats">Loading stats...</small>
             </div>
+            
+            <!-- Secret Galaga Game Button -->
+            <button class="export-btn galaga-btn" onclick="startGalagaGame()" title="Play Secret Galaga Game" style="margin-top: var(--space-md);">
+                <div class="nav-icon">🚀</div>
+                <span class="nav-text">Play Galaga</span>
+            </button>
         </div>
         
         <img src="ups-logo_white_01.png" alt="UPS Logo" class="sidebar-logo">
@@ -2470,23 +2726,6 @@
                 <div id="lfDimensionSection" class="paper-section" style="display: none;">
                     <h2 class="dimension-section-title">Enter Print Dimensions</h2>
                     
-                    <div>
-                        <h3 class="units-section-title">Select Units:</h3>
-                        <div class="units-grid">
-                            <button class="units-btn selected" id="unitsInchesBtn" onclick="selectUnits('inches')">
-                                Inches
-                            </button>
-                            <button class="units-btn" id="unitsFeetBtn" onclick="selectUnits('feet')">
-                                Feet
-                            </button>
-                        </div>
-                        <!-- Hidden radio buttons for form compatibility -->
-                        <div style="display: none;">
-                            <input type="radio" id="unitsInches" name="units" value="inches" checked>
-                            <input type="radio" id="unitsFeet" name="units" value="feet">
-                        </div>
-                    </div>
-                    
                     <div class="dimension-grid">
                         <div class="dimension-input-group">
                             <label class="dimension-label">Length:</label>
@@ -2496,6 +2735,20 @@
                         <div class="dimension-input-group">
                             <label class="dimension-label">Width:</label>
                             <input type="number" id="widthInput" class="dimension-input" placeholder="Width" min="1" step="1">
+                        </div>
+                    </div>
+                    
+                    <div class="dimension-units">
+                        <button class="units-btn selected" id="unitsInchesBtn" onclick="selectUnits('inches')">
+                            Inches
+                        </button>
+                        <button class="units-btn" id="unitsFeetBtn" onclick="selectUnits('feet')">
+                            Feet
+                        </button>
+                        <!-- Hidden radio buttons for form compatibility -->
+                        <div style="display: none;">
+                            <input type="radio" id="unitsInches" name="units" value="inches" checked>
+                            <input type="radio" id="unitsFeet" name="units" value="feet">
                         </div>
                     </div>
                     
@@ -4443,15 +4696,16 @@
         }
 
         function updateBcTitle() {
-            let title = '';
-            title += bcOptions.glossy ? 'Glossy' : 'Matte';
-            title += ' ';
-            title += bcOptions.color ? 'Color' : 'B&W';
-            title += ' ';
-            title += bcOptions.doubleSided ? 'Double-sided' : 'Single-sided';
-            title += ' ';
-            title += bcOptions.fullBleed ? 'Full-bleed' : 'No-bleed';
-            title += ' Business Cards';
+            let options = [];
+            
+            // Add options in order
+            options.push(bcOptions.glossy ? 'Glossy' : 'Matte');
+            options.push(bcOptions.color ? 'Color' : 'B&W');
+            options.push(bcOptions.doubleSided ? 'Double-sided' : 'Single-sided');
+            options.push(bcOptions.fullBleed ? 'Full-bleed' : 'No-bleed');
+            
+            // Join options with commas and add "Business Cards"
+            const title = options.join(', ') + ' Business Cards';
             
             document.getElementById('bcDynamicTitle').textContent = title;
         }
@@ -4821,7 +5075,7 @@
             // Show celebration message
             const celebration = document.createElement('div');
             celebration.className = 'secret-celebration';
-            celebration.innerHTML = '🎉 SECRET UNLOCKED! 🎉<br><span style="font-size: 1.2rem;">Export Data Activated!</span>';
+            celebration.innerHTML = '🎉 SECRET UNLOCKED! 🎉';
             document.body.appendChild(celebration);
             
             // Remove celebration after animation
@@ -4872,6 +5126,1020 @@
             const exportSection = document.querySelector('.sidebar-export');
             if (exportSection) {
                 exportSection.classList.remove('secret-unlocked');
+            }
+        }
+
+        // Galaga Game Engine
+        class GalagaGame {
+            constructor() {
+                this.canvas = null;
+                this.ctx = null;
+                this.gameState = 'menu'; // menu, playing, paused, gameOver, levelComplete
+                this.level = 1;
+                this.score = 0;
+                this.lives = 3;
+                this.levelScore = 0;
+                
+                this.player = null;
+                this.bullets = [];
+                this.enemies = [];
+                this.particles = [];
+                
+                this.keys = {};
+                this.lastShot = 0;
+                this.shootDelay = 150; // milliseconds - slower default shooting
+                this.baseShootDelay = 150;
+                
+                this.images = {};
+                this.enemyTypes = [
+                    { name: 'puppy.png', health: 1, speed: 0.3, points: 10 },
+                    { name: 'bunny-butt.png', health: 1, speed: 0.4, points: 20 },
+                    { name: 'bunny.png', health: 1, speed: 0.5, points: 25 },
+                    { name: 'cat.png', health: 2, speed: 0.6, points: 30 },
+                    { name: 'pink-pantheress.jpg', health: 2, speed: 0.7, points: 40 },
+                    { name: 'angry-emoji.png', health: 3, speed: 0.8, points: 50 }
+                ];
+                
+                this.weaponType = 'normal';
+                this.rapidFireActive = false;
+                this.powerUps = [];
+                
+                this.enemyEntryQueue = [];
+                this.formationTimer = 0;
+                this.formationState = 'entering';
+                
+                this.animationId = null;
+            }
+
+            init() {
+                this.canvas = document.getElementById('galagaCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.setupCanvas();
+                this.loadImages();
+                this.setupEventListeners();
+                this.showInstructions();
+            }
+
+            setupCanvas() {
+                const maxWidth = Math.min(window.innerWidth - 100, 800);
+                const maxHeight = Math.min(window.innerHeight - 100, 600);
+                this.canvas.width = maxWidth;
+                this.canvas.height = maxHeight;
+            }
+
+            loadImages() {
+                const imageList = [
+                    'gun-emoji.png',
+                    ...this.enemyTypes.map(enemy => enemy.name)
+                ];
+
+                let loadedCount = 0;
+                imageList.forEach(src => {
+                    const img = new Image();
+                    img.onload = () => {
+                        loadedCount++;
+                        if (loadedCount === imageList.length) {
+                            this.imagesLoaded = true;
+                        }
+                    };
+                    img.src = src;
+                    this.images[src] = img;
+                });
+            }
+
+            setupEventListeners() {
+                document.addEventListener('keydown', (e) => {
+                    this.keys[e.code] = true;
+                    
+                    if (e.code === 'Escape') {
+                        this.closeGame();
+                    } else if (e.code === 'KeyP' && this.gameState === 'playing') {
+                        this.pauseGame();
+                    } else if (e.code === 'KeyP' && this.gameState === 'paused') {
+                        this.resumeGame();
+                    }
+                });
+
+                document.addEventListener('keyup', (e) => {
+                    this.keys[e.code] = false;
+                });
+            }
+
+            startGame() {
+                this.gameState = 'playing';
+                this.level = 1;
+                this.score = 0;
+                this.lives = 3;
+                this.levelScore = 0;
+                this.setupLevel();
+                this.hideAllMenus();
+                this.gameLoop();
+            }
+
+            setupLevel() {
+                // Create player
+                this.player = {
+                    x: this.canvas.width / 2 - 25,
+                    y: this.canvas.height - 80,
+                    width: 50,
+                    height: 50,
+                    speed: 7
+                };
+
+                // Clear arrays
+                this.bullets = [];
+                this.enemies = [];
+                this.particles = [];
+
+                // Generate enemies based on level
+                this.generateEnemies();
+                this.updateUI();
+            }
+
+            generateEnemies() {
+                const baseEnemyCount = 8;
+                const enemyCount = baseEnemyCount + Math.floor(this.level * 1.5); // More aggressive scaling
+                
+                // Create formation positions
+                const formationPositions = this.createFormation(enemyCount);
+                
+                // Clear existing enemies and set up entry queue
+                this.enemies = [];
+                this.enemyEntryQueue = [];
+                this.formationTimer = 0;
+                this.formationState = 'entering';
+                
+                for (let i = 0; i < enemyCount; i++) {
+                    // More varied enemy selection - show more types earlier
+                    let enemyTypeIndex;
+                    if (this.level >= 1) {
+                        const weights = [30, 25, 20, 15, 8, 2]; // Weighted probability
+                        enemyTypeIndex = this.weightedRandom(weights, Math.min(this.level + 2, 6));
+                    } else {
+                        enemyTypeIndex = 0;
+                    }
+
+                    const enemyType = this.enemyTypes[enemyTypeIndex];
+                    const position = formationPositions[i];
+                    
+                    // Determine entry side (alternate for variety)
+                    const entrySides = ['top', 'left', 'right'];
+                    const entrySide = entrySides[i % 3];
+                    const trajectory = this.createEntryTrajectory(position.x, position.y, entrySide);
+                    
+                    // Add to entry queue with staggered timing
+                    this.enemyEntryQueue.push({
+                        delay: i * 20, // 20 frames between each enemy entry
+                        data: {
+                            width: 50,
+                            height: 50,
+                            speed: enemyType.speed,
+                            health: enemyType.health,
+                            maxHealth: enemyType.health,
+                            points: enemyType.points,
+                            type: enemyType.name,
+                            state: 'entering',
+                            trajectory: trajectory,
+                            trajectoryIndex: 0,
+                            formationX: position.x,
+                            formationY: position.y,
+                            zigzagOffset: Math.random() * Math.PI * 2,
+                            diveTimer: Math.random() * 600 + 400 // Much longer dive timer
+                        }
+                    });
+                }
+            }
+
+            weightedRandom(weights, maxIndex) {
+                const total = weights.slice(0, maxIndex).reduce((sum, weight) => sum + weight, 0);
+                let random = Math.random() * total;
+                
+                for (let i = 0; i < maxIndex; i++) {
+                    random -= weights[i];
+                    if (random <= 0) return i;
+                }
+                return maxIndex - 1;
+            }
+
+            createFormation(enemyCount) {
+                let positions = [];
+                const formationTypes = ['diamond', 'V', 'arrow', 'spread'];
+                const formationType = formationTypes[Math.floor(Math.random() * formationTypes.length)];
+                
+                // Start higher on later levels to compensate for faster movement
+                const levelAdjustment = Math.min(this.level * 15, 100); // Up to 100px higher on later levels
+                const baseY = Math.max(20, 50 - levelAdjustment) + Math.random() * 20; // Higher starting position, compensated for level
+                
+                if (formationType === 'diamond') {
+                    // Diamond formation - multiple concentric rings for large counts with more spacing
+                    const centerX = this.canvas.width / 2;
+                    for (let i = 0; i < enemyCount; i++) {
+                        const ring = Math.floor(i / 8); // 8 enemies per ring
+                        const angle = (i % 8) / 8 * Math.PI * 2;
+                        const radius = 80 + ring * 60; // Increased spacing between rings
+                        const x = centerX + Math.cos(angle) * radius - 25;
+                        const y = baseY + Math.sin(angle) * 40 + ring * 50; // More vertical spread
+                        positions.push({ x, y });
+                    }
+                } else if (formationType === 'V') {
+                    // V formation - extended V for larger counts with wider spread
+                    const centerX = this.canvas.width / 2;
+                    for (let i = 0; i < enemyCount; i++) {
+                        const side = i % 2;
+                        const row = Math.floor(i / 2);
+                        const spread = Math.min(row * 35, 120); // Increased spread
+                        const x = centerX + (side === 0 ? -1 : 1) * (40 + spread) - 25;
+                        const y = baseY + row * 45; // More vertical spacing
+                        positions.push({ x, y });
+                    }
+                } else if (formationType === 'arrow') {
+                    // Arrow formation - wider arrow for large counts with more spacing
+                    const centerX = this.canvas.width / 2;
+                    const cols = Math.min(5, Math.ceil(Math.sqrt(enemyCount)));
+                    for (let i = 0; i < enemyCount; i++) {
+                        const row = Math.floor(i / cols);
+                        const col = i % cols;
+                        const x = centerX + (col - Math.floor(cols/2)) * (50 + row * 10) - 25; // Wider horizontal spacing
+                        const y = baseY + row * 55; // More vertical spacing
+                        positions.push({ x, y });
+                    }
+                } else {
+                    // Spread formation (default) - adapt to larger enemy counts with better spacing
+                    const cols = Math.min(5, Math.ceil(Math.sqrt(enemyCount))); // Fewer columns for more spread
+                    const rows = Math.ceil(enemyCount / cols);
+                    for (let i = 0; i < enemyCount; i++) {
+                        const row = Math.floor(i / cols);
+                        const col = i % cols;
+                        const spacing = Math.max(90, this.canvas.width / (cols + 1)); // Increased minimum spacing
+                        const x = spacing * (col + 1) - 25 + (Math.random() - 0.5) * 25;
+                        const y = baseY + (row * (50 + Math.random() * 20)); // More vertical spacing
+                        positions.push({ x, y });
+                    }
+                }
+                
+                // Apply safety barrier enforcement
+                positions = this.enforceSafetyBarrier(positions);
+                
+                return positions;
+            }
+
+            enforceSafetyBarrier(positions) {
+                try {
+                    // Return early if no positions
+                    if (!positions || positions.length === 0) {
+                        return positions;
+                    }
+                    
+                    // Calculate safety barrier - leave at least 200px for player reaction
+                    const safetyBarrier = this.canvas.height - 200;
+                    
+                    // Find the lowest (highest Y value) enemy position
+                    let lowestY = Math.max(...positions.map(pos => pos.y));
+                    
+                    // Validate that lowestY is a valid number
+                    if (!isFinite(lowestY)) {
+                        console.error('Invalid lowestY value:', lowestY, 'positions:', positions);
+                        return positions;
+                    }
+                    
+                    // If any enemy is below the safety barrier, shift entire formation up
+                    if (lowestY > safetyBarrier) {
+                        const shiftAmount = lowestY - safetyBarrier;
+                        
+                        // Apply uniform shift to all positions
+                        positions = positions.map(pos => ({
+                            x: pos.x,
+                            y: pos.y - shiftAmount
+                        }));
+                        
+                        // Additional safety check - ensure no position goes above screen
+                        let highestY = Math.min(...positions.map(pos => pos.y));
+                        if (highestY < -100) {
+                            // If formation got pushed too high, compress it vertically
+                            const compressionNeeded = -100 - highestY;
+                            const compressionRatio = 1 - (compressionNeeded / (lowestY - highestY + shiftAmount));
+                            
+                            const centerY = positions.reduce((sum, pos) => sum + pos.y, 0) / positions.length;
+                            positions = positions.map(pos => ({
+                                x: pos.x,
+                                y: centerY + (pos.y - centerY) * Math.max(0.5, compressionRatio)
+                            }));
+                        }
+                    }
+                    
+                    return positions;
+                } catch (error) {
+                    console.error('Error in enforceSafetyBarrier:', error, 'positions:', positions);
+                    return positions; // Return original positions if there's an error
+                }
+            }
+
+            createEntryTrajectory(finalX, finalY, side = 'top') {
+                const trajectory = [];
+                const steps = 60; // Number of trajectory points
+                
+                // Start trajectories higher on later levels
+                const levelOffset = Math.min(this.level * 20, 150); // Up to 150px higher on later levels
+                
+                if (side === 'top') {
+                    // Enter from top with a curved path
+                    const startX = finalX + (Math.random() - 0.5) * 200;
+                    const startY = -100 - levelOffset;
+                    const controlX = finalX + (Math.random() - 0.5) * 100;
+                    const controlY = finalY - 100 - (levelOffset / 2);
+                    
+                    for (let i = 0; i <= steps; i++) {
+                        const t = i / steps;
+                        // Simple quadratic curve
+                        const x = (1 - t) * (1 - t) * startX + 2 * (1 - t) * t * controlX + t * t * finalX;
+                        const y = (1 - t) * (1 - t) * startY + 2 * (1 - t) * t * controlY + t * t * finalY;
+                        trajectory.push({ x, y });
+                    }
+                } else if (side === 'left') {
+                    // Enter from left side with curve
+                    const startX = -50;
+                    const startY = finalY - 200 - levelOffset;
+                    const controlX = finalX - 100;
+                    const controlY = finalY - 50 - (levelOffset / 2);
+                    
+                    for (let i = 0; i <= steps; i++) {
+                        const t = i / steps;
+                        const x = (1 - t) * (1 - t) * startX + 2 * (1 - t) * t * controlX + t * t * finalX;
+                        const y = (1 - t) * (1 - t) * startY + 2 * (1 - t) * t * controlY + t * t * finalY;
+                        trajectory.push({ x, y });
+                    }
+                } else { // right
+                    // Enter from right side with curve
+                    const startX = this.canvas.width + 50;
+                    const startY = finalY - 200 - levelOffset;
+                    const controlX = finalX + 100;
+                    const controlY = finalY - 50 - (levelOffset / 2);
+                    
+                    for (let i = 0; i <= steps; i++) {
+                        const t = i / steps;
+                        const x = (1 - t) * (1 - t) * startX + 2 * (1 - t) * t * controlX + t * t * finalX;
+                        const y = (1 - t) * (1 - t) * startY + 2 * (1 - t) * t * controlY + t * t * finalY;
+                        trajectory.push({ x, y });
+                    }
+                }
+                
+                return trajectory;
+            }
+
+            spawnPowerUp(x, y) {
+                const powerUpTypes = ['scatter', 'triple', 'cannon', 'rapidfire'];
+                const type = powerUpTypes[Math.floor(Math.random() * powerUpTypes.length)];
+                
+                this.powerUps.push({
+                    x: x - 15,
+                    y: y,
+                    width: 30,
+                    height: 30,
+                    type: type,
+                    color: this.getPowerUpColor(type)
+                });
+            }
+
+            getPowerUpColor(type) {
+                switch(type) {
+                    case 'scatter': return '#FF6B35';
+                    case 'triple': return '#4ECDC4';
+                    case 'cannon': return '#45B7D1';
+                    case 'rapidfire': return '#96CEB4';
+                    default: return '#FFF';
+                }
+            }
+
+            checkPowerUpCollisions() {
+                this.powerUps.forEach((powerUp, index) => {
+                    if (this.isColliding(this.player, powerUp)) {
+                        this.applyPowerUp(powerUp.type);
+                        this.powerUps.splice(index, 1);
+                        
+                        // Visual feedback
+                        this.createPowerUpParticles(powerUp.x + powerUp.width/2, powerUp.y + powerUp.height/2, powerUp.color);
+                    }
+                });
+            }
+
+            applyPowerUp(type) {
+                this.weaponType = type;
+                
+                if (type === 'rapidfire') {
+                    this.shootDelay = this.baseShootDelay / 3;
+                    setTimeout(() => {
+                        this.shootDelay = this.baseShootDelay;
+                        if (this.weaponType === 'rapidfire') this.weaponType = 'normal';
+                    }, 8000);
+                } else {
+                    this.shootDelay = this.baseShootDelay;
+                    setTimeout(() => {
+                        this.weaponType = 'normal';
+                    }, 10000);
+                }
+            }
+
+            createPowerUpParticles(x, y, color) {
+                for (let i = 0; i < 12; i++) {
+                    this.particles.push({
+                        x: x,
+                        y: y,
+                        vx: (Math.random() - 0.5) * 8,
+                        vy: (Math.random() - 0.5) * 8,
+                        life: 30,
+                        maxLife: 30,
+                        color: color
+                    });
+                }
+            }
+
+            gameLoop() {
+                if (this.gameState !== 'playing') return;
+
+                this.update();
+                this.render();
+                this.animationId = requestAnimationFrame(() => this.gameLoop());
+            }
+
+            update() {
+                // Player movement
+                if (this.keys['ArrowLeft'] && this.player.x > 0) {
+                    this.player.x -= this.player.speed;
+                }
+                if (this.keys['ArrowRight'] && this.player.x < this.canvas.width - this.player.width) {
+                    this.player.x += this.player.speed;
+                }
+
+                // Player shooting
+                if (this.keys['Space'] && Date.now() - this.lastShot > this.shootDelay) {
+                    this.shoot();
+                    this.lastShot = Date.now();
+                }
+
+                // Update bullets
+                this.bullets = this.bullets.filter(bullet => {
+                    bullet.y -= bullet.speed;
+                    if (bullet.vx) bullet.x += bullet.vx;
+                    return bullet.y > -10 && bullet.x > -20 && bullet.x < this.canvas.width + 20;
+                });
+
+                // Process enemy entry queue
+                this.formationTimer++;
+                this.enemyEntryQueue = this.enemyEntryQueue.filter(entry => {
+                    entry.delay--;
+                    if (entry.delay <= 0) {
+                        // Add enemy to active enemies
+                        const pos = entry.data.trajectory[0];
+                        this.enemies.push({
+                            x: pos.x,
+                            y: pos.y,
+                            ...entry.data
+                        });
+                        return false; // Remove from queue
+                    }
+                    return true;
+                });
+
+                // Update enemies with new 3-state system
+                this.enemies.forEach(enemy => {
+                    if (enemy.state === 'entering') {
+                        // Follow entry trajectory
+                        if (enemy.trajectoryIndex < enemy.trajectory.length - 1) {
+                            enemy.trajectoryIndex++;
+                            const pos = enemy.trajectory[enemy.trajectoryIndex];
+                            enemy.x = pos.x;
+                            enemy.y = pos.y;
+                        } else {
+                            // Entry complete, move to formation
+                            enemy.state = 'formation';
+                            enemy.x = enemy.formationX;
+                            enemy.y = enemy.formationY;
+                        }
+                    } else if (enemy.state === 'formation') {
+                        // Formation behavior with group expansion/contraction
+                        const formationOffset = Math.sin(this.formationTimer * 0.01) * 10;
+                        const individualOffset = Math.sin(enemy.zigzagOffset) * 3;
+                        
+                        // Move formation downward - faster as levels progress
+                        const baseSpeed = 0.15;
+                        const levelMultiplier = 1 + (this.level * 0.1);
+                        const globalDownwardMovement = this.formationTimer * baseSpeed * levelMultiplier;
+                        
+                        enemy.x = enemy.formationX + formationOffset + individualOffset;
+                        enemy.y = enemy.formationY + Math.cos(enemy.zigzagOffset * 0.5) * 2 + globalDownwardMovement;
+                        enemy.zigzagOffset += 0.02;
+                        
+                        // Reduced dive chance - only when formation is stable
+                        if (this.enemyEntryQueue.length === 0 && this.formationTimer > 180) {
+                            enemy.diveTimer--;
+                            if (enemy.diveTimer <= 0 && Math.random() < 0.003) { // Much lower probability
+                                enemy.state = 'diving';
+                                enemy.divePattern = Math.floor(Math.random() * 3); // 0=straight, 1=left curve, 2=right curve
+                                enemy.diveStep = 0;
+                            }
+                        }
+                    } else if (enemy.state === 'diving') {
+                        // Simple dive patterns
+                        enemy.diveStep++;
+                        const speed = 3;
+                        
+                        if (enemy.divePattern === 0) {
+                            // Straight down
+                            enemy.y += speed;
+                        } else if (enemy.divePattern === 1) {
+                            // Gentle left curve
+                            enemy.x -= Math.sin(enemy.diveStep * 0.05) * 2;
+                            enemy.y += speed;
+                        } else {
+                            // Gentle right curve
+                            enemy.x += Math.sin(enemy.diveStep * 0.05) * 2;
+                            enemy.y += speed;
+                        }
+                        
+                        // Return to formation if off-screen
+                        if (enemy.y > this.canvas.height + 50 || 
+                            enemy.x < -50 || enemy.x > this.canvas.width + 50) {
+                            enemy.state = 'formation';
+                            enemy.x = enemy.formationX;
+                            enemy.y = enemy.formationY;
+                            enemy.diveTimer = Math.random() * 600 + 400;
+                        }
+                    }
+
+                    // Boundary checking for formation enemies only
+                    if (enemy.state === 'formation') {
+                        if (enemy.x < 0 || enemy.x > this.canvas.width - enemy.width) {
+                            enemy.x = Math.max(0, Math.min(this.canvas.width - enemy.width, enemy.x));
+                        }
+                    }
+                });
+
+                // Check if all enemies have entered formation
+                if (this.enemyEntryQueue.length === 0 && this.formationState === 'entering') {
+                    this.formationState = 'stable';
+                }
+
+                // Remove enemies that have passed the bottom (but allow formation to get lower)
+                this.enemies = this.enemies.filter(enemy => {
+                    if (enemy.state === 'formation') {
+                        return enemy.y < this.canvas.height + 100; // Allow formation to get closer to bottom
+                    } else {
+                        return enemy.y < this.canvas.height + 50; // Normal removal for diving enemies
+                    }
+                });
+
+                // Update power-ups
+                this.powerUps.forEach(powerUp => {
+                    powerUp.y += 2;
+                });
+                this.powerUps = this.powerUps.filter(powerUp => powerUp.y < this.canvas.height);
+
+                // Check power-up collisions
+                this.checkPowerUpCollisions();
+
+                // Collision detection
+                this.checkCollisions();
+
+                // Check win condition
+                if (this.enemies.length === 0) {
+                    this.levelComplete();
+                }
+
+                // Check lose condition (enemy reached player area)
+                if (this.enemies.some(enemy => enemy.y > this.canvas.height - 100)) {
+                    this.loseLife();
+                }
+
+                // Update particles
+                this.updateParticles();
+            }
+
+            shoot() {
+                const centerX = this.player.x + this.player.width / 2;
+                const playerY = this.player.y;
+
+                switch(this.weaponType) {
+                    case 'scatter':
+                        // 3 bullets spread out
+                        for (let i = -1; i <= 1; i++) {
+                            this.bullets.push({
+                                x: centerX - 2 + (i * 15),
+                                y: playerY,
+                                width: 4,
+                                height: 8,
+                                speed: 10,
+                                vx: i * 2
+                            });
+                        }
+                        break;
+                    case 'triple':
+                        // 3 parallel bullets
+                        for (let i = -1; i <= 1; i++) {
+                            this.bullets.push({
+                                x: centerX - 2 + (i * 20),
+                                y: playerY,
+                                width: 4,
+                                height: 10,
+                                speed: 10,
+                                vx: 0
+                            });
+                        }
+                        break;
+                    case 'cannon':
+                        // Large slow bullet
+                        this.bullets.push({
+                            x: centerX - 6,
+                            y: playerY,
+                            width: 12,
+                            height: 20,
+                            speed: 8,
+                            damage: 3,
+                            vx: 0
+                        });
+                        break;
+                    default: // normal
+                        this.bullets.push({
+                            x: centerX - 2,
+                            y: playerY,
+                            width: 4,
+                            height: 10,
+                            speed: 10,
+                            vx: 0
+                        });
+                }
+            }
+
+            checkCollisions() {
+                // Bullet-enemy collisions
+                this.bullets.forEach((bullet, bulletIndex) => {
+                    this.enemies.forEach((enemy, enemyIndex) => {
+                        if (this.isColliding(bullet, enemy)) {
+                            // Create hit particles
+                            this.createHitParticles(enemy.x + enemy.width/2, enemy.y + enemy.height/2);
+                            
+                            // Damage enemy
+                            const damage = bullet.damage || 1;
+                            enemy.health -= damage;
+                            
+                            // Remove bullet
+                            this.bullets.splice(bulletIndex, 1);
+                            
+                            // Remove enemy if health is 0
+                            if (enemy.health <= 0) {
+                                this.score += enemy.points;
+                                this.levelScore += enemy.points;
+                                this.createExplosionParticles(enemy.x + enemy.width/2, enemy.y + enemy.height/2);
+                                
+                                // Chance to drop power-up (much rarer)
+                                if (Math.random() < 0.03) {
+                                    this.spawnPowerUp(enemy.x + enemy.width/2, enemy.y + enemy.height/2);
+                                }
+                                
+                                this.enemies.splice(enemyIndex, 1);
+                            }
+                            
+                            this.updateUI();
+                        }
+                    });
+                });
+            }
+
+            isColliding(rect1, rect2) {
+                return rect1.x < rect2.x + rect2.width &&
+                       rect1.x + rect1.width > rect2.x &&
+                       rect1.y < rect2.y + rect2.height &&
+                       rect1.y + rect1.height > rect2.y;
+            }
+
+            createHitParticles(x, y) {
+                for (let i = 0; i < 5; i++) {
+                    this.particles.push({
+                        x: x,
+                        y: y,
+                        vx: (Math.random() - 0.5) * 4,
+                        vy: (Math.random() - 0.5) * 4,
+                        life: 30,
+                        maxLife: 30,
+                        color: '#FFD700'
+                    });
+                }
+            }
+
+            createExplosionParticles(x, y) {
+                for (let i = 0; i < 12; i++) {
+                    this.particles.push({
+                        x: x,
+                        y: y,
+                        vx: (Math.random() - 0.5) * 8,
+                        vy: (Math.random() - 0.5) * 8,
+                        life: 40,
+                        maxLife: 40,
+                        color: '#FF4500'
+                    });
+                }
+            }
+
+            updateParticles() {
+                this.particles = this.particles.filter(particle => {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    particle.life--;
+                    return particle.life > 0;
+                });
+            }
+
+            render() {
+                // Clear canvas
+                this.ctx.fillStyle = '#000';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Draw stars background
+                this.drawStars();
+
+                // Draw player
+                if (this.images['gun-emoji.png'] && this.images['gun-emoji.png'].complete) {
+                    this.ctx.save();
+                    this.ctx.translate(this.player.x + this.player.width/2, this.player.y + this.player.height/2);
+                    this.ctx.rotate(Math.PI * 80 / 180); // Rotate 80 degrees clockwise
+                    this.ctx.drawImage(this.images['gun-emoji.png'], -this.player.width/2, -this.player.height/2, this.player.width, this.player.height);
+                    this.ctx.restore();
+                }
+
+                // Draw bullets
+                this.bullets.forEach(bullet => {
+                    if (bullet.damage && bullet.damage > 1) {
+                        this.ctx.fillStyle = '#FFD700'; // Gold for cannon bullets
+                    } else {
+                        this.ctx.fillStyle = '#00FF00';
+                    }
+                    this.ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+                });
+
+                // Draw enemies
+                this.enemies.forEach(enemy => {
+                    if (this.images[enemy.type] && this.images[enemy.type].complete) {
+                        this.ctx.drawImage(this.images[enemy.type], enemy.x, enemy.y, enemy.width, enemy.height);
+                        
+                        // Draw health bar for damaged enemies
+                        if (enemy.health < enemy.maxHealth) {
+                            const healthBarWidth = enemy.width;
+                            const healthBarHeight = 4;
+                            const healthPercentage = enemy.health / enemy.maxHealth;
+                            
+                            this.ctx.fillStyle = '#FF0000';
+                            this.ctx.fillRect(enemy.x, enemy.y - 8, healthBarWidth, healthBarHeight);
+                            
+                            this.ctx.fillStyle = '#00FF00';
+                            this.ctx.fillRect(enemy.x, enemy.y - 8, healthBarWidth * healthPercentage, healthBarHeight);
+                        }
+                    }
+                });
+
+                // Draw power-ups
+                this.powerUps.forEach(powerUp => {
+                    this.ctx.fillStyle = powerUp.color;
+                    this.ctx.fillRect(powerUp.x, powerUp.y, powerUp.width, powerUp.height);
+                    
+                    // Draw power-up type letter
+                    this.ctx.fillStyle = '#FFF';
+                    this.ctx.font = 'bold 14px Arial';
+                    this.ctx.textAlign = 'center';
+                    const letter = powerUp.type.charAt(0).toUpperCase();
+                    this.ctx.fillText(letter, powerUp.x + powerUp.width/2, powerUp.y + powerUp.height/2 + 5);
+                });
+
+                // Draw particles
+                this.particles.forEach(particle => {
+                    const alpha = particle.life / particle.maxLife;
+                    this.ctx.fillStyle = particle.color + Math.floor(alpha * 255).toString(16).padStart(2, '0');
+                    this.ctx.fillRect(particle.x, particle.y, 3, 3);
+                });
+
+                // Draw weapon indicator
+                if (this.weaponType !== 'normal') {
+                    this.ctx.fillStyle = '#FFD700';
+                    this.ctx.font = 'bold 16px Arial';
+                    this.ctx.textAlign = 'left';
+                    this.ctx.fillText(`Weapon: ${this.weaponType.toUpperCase()}`, 10, this.canvas.height - 30);
+                }
+            }
+
+            drawStars() {
+                this.ctx.fillStyle = '#FFFFFF';
+                for (let i = 0; i < 50; i++) {
+                    const x = (i * 137.508) % this.canvas.width;
+                    const y = (i * 67.432) % this.canvas.height;
+                    this.ctx.fillRect(x, y, 1, 1);
+                }
+            }
+
+            levelComplete() {
+                this.gameState = 'levelComplete';
+                this.showCelebration();
+                
+                setTimeout(() => {
+                    this.level++;
+                    this.hideCelebration();
+                    this.setupLevel();
+                    this.gameState = 'playing';
+                    this.gameLoop();
+                }, 3000);
+            }
+
+            loseLife() {
+                this.lives--;
+                this.updateUI();
+                
+                if (this.lives <= 0) {
+                    this.gameOver();
+                } else {
+                    // Reset enemies that reached bottom
+                    this.enemies = this.enemies.filter(enemy => enemy.y <= this.canvas.height - 100);
+                }
+            }
+
+            gameOver() {
+                this.gameState = 'gameOver';
+                this.showGameOver();
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+            }
+
+            pauseGame() {
+                this.gameState = 'paused';
+                document.getElementById('galagaPause').style.display = 'block';
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+            }
+
+            resumeGame() {
+                this.gameState = 'playing';
+                document.getElementById('galagaPause').style.display = 'none';
+                this.gameLoop();
+            }
+
+            updateUI() {
+                document.getElementById('galagaScore').textContent = this.score;
+                document.getElementById('galagaLevel').textContent = this.level;
+                document.getElementById('galagaLives').textContent = this.lives;
+            }
+
+            showInstructions() {
+                document.getElementById('galagaInstructions').style.display = 'block';
+            }
+
+            hideAllMenus() {
+                document.getElementById('galagaInstructions').style.display = 'none';
+                document.getElementById('galagaPause').style.display = 'none';
+                document.getElementById('galagaGameOver').style.display = 'none';
+                document.getElementById('galagaCelebration').style.display = 'none';
+                document.getElementById('galagaLeaderboard').style.display = 'none';
+            }
+
+            showCelebration() {
+                document.getElementById('celebrationScore').textContent = this.levelScore;
+                document.getElementById('galagaCelebration').style.display = 'block';
+                this.levelScore = 0;
+            }
+
+            hideCelebration() {
+                document.getElementById('galagaCelebration').style.display = 'none';
+            }
+
+            showGameOver() {
+                document.getElementById('galagaFinalScore').textContent = this.score;
+                document.getElementById('galagaGameOver').style.display = 'block';
+            }
+
+            closeGame() {
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+                document.getElementById('galagaGameOverlay').style.display = 'none';
+            }
+        }
+
+        // Global Galaga game instance
+        let galagaGame = null;
+
+        // Galaga Game Functions
+        function startGalagaGame() {
+            document.getElementById('galagaGameOverlay').style.display = 'flex';
+            if (!galagaGame) {
+                galagaGame = new GalagaGame();
+            }
+            galagaGame.init();
+        }
+
+        function initGalagaGame() {
+            // Ensure game is initialized
+            if (!galagaGame) {
+                galagaGame = new GalagaGame();
+                galagaGame.init();
+            }
+            
+            // Start the game
+            galagaGame.hideAllMenus();
+            galagaGame.startGame();
+        }
+
+        function closeGalagaGame() {
+            if (galagaGame) {
+                galagaGame.closeGame();
+            }
+        }
+
+        function restartGalagaGame() {
+            if (galagaGame) {
+                galagaGame.hideAllMenus();
+                galagaGame.startGame();
+            }
+        }
+
+        function submitGalagaScore() {
+            const playerName = document.getElementById('galagaPlayerName').value.trim();
+            if (!playerName) {
+                alert('Please enter your name!');
+                return;
+            }
+
+            // Get existing high scores
+            let highScores = JSON.parse(localStorage.getItem('galagaHighScores') || '[]');
+            
+            // Add new score
+            highScores.push({
+                name: playerName,
+                score: galagaGame.score,
+                level: galagaGame.level,
+                date: new Date().toLocaleDateString()
+            });
+            
+            // Sort by score (descending) and keep top 10
+            highScores.sort((a, b) => b.score - a.score);
+            highScores = highScores.slice(0, 10);
+            
+            // Save back to localStorage
+            localStorage.setItem('galagaHighScores', JSON.stringify(highScores));
+            
+            // Hide game over screen first
+            document.getElementById('galagaGameOver').style.display = 'none';
+            
+            // Show leaderboard immediately
+            showGalagaLeaderboard(true); // Pass true to indicate this is after score submission
+            
+            // Clear input
+            document.getElementById('galagaPlayerName').value = '';
+        }
+
+        function showGalagaLeaderboard(afterScoreSubmission = false) {
+            const highScores = JSON.parse(localStorage.getItem('galagaHighScores') || '[]');
+            const leaderboardList = document.getElementById('galagaLeaderboardList');
+            const playAgainBtn = document.getElementById('galagaPlayAgainBtn');
+            
+            leaderboardList.innerHTML = '';
+            
+            if (highScores.length === 0) {
+                leaderboardList.innerHTML = '<li>No high scores yet!</li>';
+            } else {
+                highScores.forEach((score, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${score.name}</strong> - ${score.score} pts (Level ${score.level}) - ${score.date}`;
+                    leaderboardList.appendChild(li);
+                });
+            }
+            
+            // Hide Play Again button initially
+            playAgainBtn.style.display = 'none';
+            
+            document.getElementById('galagaLeaderboard').style.display = 'block';
+            
+            // If this is after score submission, show Play Again button after 2 seconds
+            if (afterScoreSubmission) {
+                setTimeout(() => {
+                    playAgainBtn.style.display = 'inline-block';
+                }, 2000);
+            } else {
+                // If accessed from main menu, show Play Again immediately
+                playAgainBtn.style.display = 'inline-block';
+            }
+        }
+
+        function hideGalagaLeaderboard() {
+            document.getElementById('galagaLeaderboard').style.display = 'none';
+            // Reset to main menu state
+            if (galagaGame) {
+                galagaGame.gameState = 'menu';
+                document.getElementById('galagaInstructions').style.display = 'block';
+            }
+        }
+
+        function restartFromLeaderboard() {
+            document.getElementById('galagaLeaderboard').style.display = 'none';
+            if (galagaGame) {
+                galagaGame.hideAllMenus();
+                galagaGame.startGame();
             }
         }
 
