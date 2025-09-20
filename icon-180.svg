@@ -1,0 +1,7 @@
+<svg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'>
+<rect width='180' height='180' rx='22' fill='#2980b9'/>
+<rect x='30' y='30' width='120' height='156' fill='white' stroke='#ddd' stroke-width='2'/>
+<rect x='75' y='52' width='90' height='2' fill='#2980b9'/>
+<rect x='75' y='67' width='90' height='2' fill='#2980b9'/>
+<rect x='75' y='82' width='90' height='2' fill='#2980b9'/>
+</svg>
