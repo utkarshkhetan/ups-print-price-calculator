@@ -598,7 +598,24 @@
         .content {
             max-width: 1200px;
             margin: 0 auto;
+            /* When sidebar is collapsed, shift content right by half the sidebar width to truly center */
+            transform: translateX(calc(var(--sidebar-collapsed) / 2));
         }
+
+        .main-content.sidebar-open .content {
+            /* When sidebar is open, no transform needed */
+            transform: none;
+        }
+
+        /* Apply same centering fix to header content, but not the logo */
+        .header-content {
+            transform: translateX(calc(var(--sidebar-collapsed) / 2));
+        }
+
+        .header.sidebar-open .header-content {
+            transform: none;
+        }
+
 
         /* Modern Paper Grid */
         .paper-grid {
@@ -2871,7 +2888,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: var(--space-xl);
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
         
@@ -3306,8 +3323,8 @@
         <div class="header-content sidebar-open">
             <h1 id="headerTitle">Standard Prints  <span class="last-char">📄</span></h1>
             <p id="headerSubtitle">Select your paper type and get instant pricing</p>
-            <img src="ups-logo_white_01.png" alt="UPS Logo" class="header-logo">
         </div>
+        <img src="ups-logo_white_01.png" alt="UPS Logo" class="header-logo">
     </div>
 
     <!-- Sidebar -->
@@ -3695,7 +3712,7 @@
 
                 <!-- Large Format Results Section -->
                 <div id="lfResultsSection" class="results-section" style="display: none;">
-                    <h2>Large Format Price Calculation</h2>
+                    <h2>Price Calculation</h2>
                     <div class="selection-history">
                         <div class="selection-summary">
                             <h3 class="section-subtitle">Selections</h3>
@@ -3805,10 +3822,6 @@
                             <!-- Left Side: Standard Scanning Pricing Table -->
                             <div class="sticker-pricing-section">
                                 <h3 id="standardScanTableTitle">ADF Price Chart</h3>
-                                <!-- Cumulative Tiered Pricing note -->
-                                <div style="text-align: center; margin: -20px 0 5px 0;">
-                                    <div style="font-size: 0.8rem; color: #666; font-style: italic;">Cumulative Tiered Pricing</div>
-                                </div>
                                 <div style="flex: 1; display: flex; flex-direction: column;">
                                     <table class="sticker-pricing-table" id="standardScanPricingTable" style="flex-grow: 1;">
                                     <thead>
@@ -3821,6 +3834,11 @@
                                         <!-- Pricing rows will be populated by JavaScript -->
                                     </tbody>
                                     </table>
+
+                                    <!-- Cumulative Tiered Pricing note -->
+                                    <div style="text-align: center; margin-top: 4px; margin-bottom: -15px;">
+                                        <div style="font-size: 0.8rem; color: #666; font-style: italic;">Cumulative Tiered Pricing</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -3867,10 +3885,6 @@
                             <!-- Left Side: Large-Format Scans Table -->
                             <div class="sticker-pricing-section">
                                 <h3>Large-Format Scans Price Chart</h3>
-                                <!-- Flat Rate Pricing note -->
-                                <div style="text-align: center; margin: -20px 0 5px 0;">
-                                    <div style="font-size: 0.8rem; color: #666; font-style: italic;">Flat Rate Pricing</div>
-                                </div>
                                 <div style="flex: 1; display: flex; flex-direction: column;">
                                     <table class="sticker-pricing-table" style="max-height: 250px;">
                                         <thead>
@@ -3898,6 +3912,11 @@
                                             </tr>
                                         </tbody>
                                     </table>
+
+                                    <!-- Flat Rate Pricing note -->
+                                    <div style="text-align: center; margin-top: 4px; margin-bottom: -15px;">
+                                        <div style="font-size: 0.8rem; color: #666; font-style: italic;">Flat Rate Pricing</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -3969,6 +3988,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                    <!-- Flat Rate Pricing note -->
+                                    <div style="text-align: center; margin-top: 4px; margin-bottom: -15px;">
+                                        <div style="font-size: 0.8rem; color: #666; font-style: italic;">Flat Rate Pricing</div>
+                                    </div>
                             </div>
                         </div>
 
@@ -4152,6 +4176,11 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                        <!-- Flat Rate Pricing note -->
+                        <div style="text-align: center; margin-top: 15px; margin-bottom: -38px;">
+                            <div style="font-size: 0.8rem; color: #666; font-style: italic;">Flat Rate Pricing</div>
+                        </div>
                     </div>
 
                 </div>
@@ -4235,6 +4264,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <!-- Flat Rate Pricing note -->
+                                <div style="text-align: center; margin-top: 4px; margin-bottom: -15px;">
+                                    <div style="font-size: 0.8rem; color: #666; font-style: italic;">Flat Rate Pricing</div>
+                                </div>
                             </div>
                         </div>
 
@@ -4267,6 +4301,11 @@
                                         <div style="font-weight: 600; color: white; font-size: 1.1rem;">Final Price</div>
                                         <div id="stickerFinalPrice" style="font-size: 2rem; font-weight: 700; color: white;">-</div>
                                     </div>
+
+                                    <!-- Flat Rate Pricing note -->
+                                    <div id="stickerCalculatorPricingNote" style="text-align: center; margin-top: 4px; margin-bottom: -15px; opacity: 0;">
+                                        <div style="font-size: 0.75rem; color: #666; font-style: italic;">Flat Rate Pricing</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -4278,11 +4317,13 @@
                                         <img id="stickerSheetPreview"
                                              src="1 x 2.625 matte.png"
                                              alt="Selected Sticker Sheet Preview"
-                                             style="max-width: 100%; max-height: 375px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer;"
+                                             style="max-width: 100%; max-height: 396px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer;"
                                              onclick="openImageFullscreen('stickerSheetPreview')">
                                     </div>
                                 </div>
-                                <p style="margin-top: 10px; margin-bottom: 0; padding-bottom: 0; font-style: italic; color: #666; font-size: 0.9rem; text-align: center;">click to enlarge</p>
+
+                                <!-- Click to enlarge note -->
+                                <p style="margin-top: 4px; margin-bottom: -15px; font-style: italic; color: #666; font-size: 0.9rem; text-align: center;">click to enlarge</p>
                             </div>
                         </div>
                     </div>
@@ -4301,6 +4342,15 @@
                         <button class="toggle-btn" id="largeEnvelopeBtn" onclick="toggleStampType('large')">Large Envelope<br><small>(15" x 12" x 0.75")</small></button>
                     </div>
 
+                    <!-- Weight Warning Banner -->
+                    <div id="stampWeightWarningBanner" class="recommendation-banner" style="display: none;">
+                        <div class="banner-content">
+                            <span class="banner-icon">⚠️</span>
+                            <span class="banner-text">Weight out of range. USPS First Class Mail has a max limit of 13 oz</span>
+                            <button class="banner-close" onclick="closeStampWarningBanner()">&times;</button>
+                        </div>
+                    </div>
+
                     <!-- REVERT POINT: Original layout preserved below in comments -->
                     <!--
                     ORIGINAL STAMPS LAYOUT - TO REVERT, REPLACE THE NEW LAYOUT WITH THIS:
@@ -4313,7 +4363,7 @@
                             <! - - Weight Input - - >
                             <div style="margin-bottom: 20px;">
                                 <label style="font-weight: 600; margin-bottom: 10px; display: block; font-size: 1.3rem;">How many oz?</label>
-                                <input type="number" id="stampWeightInput" placeholder="Enter weight (oz)" min="0" max="13" step="0.1"
+                                <input type="number" id="stampWeightInput" placeholder="enter weight (oz)" min="0" max="13" step="0.1"
                                        style="padding: 15px 20px; font-size: 1.5rem; border: 2px solid #ddd; border-radius: 8px; width: 280px; text-align: center;"
                                        oninput="calculateStampPostage()">
                             </div>
@@ -4406,7 +4456,7 @@
                                     <!-- Weight Input -->
                                     <div style="margin-bottom: 35px;">
                                         <label style="font-weight: 600; margin-bottom: 10px; display: block; font-size: 1.3rem;">How many oz?</label>
-                                        <input type="number" id="stampWeightInput" placeholder="Enter weight (oz)" min="0" max="13" step="0.1"
+                                        <input type="number" id="stampWeightInput" placeholder="enter weight (oz)" min="0" max="13" step="0.1"
                                                style="padding: 15px 20px; font-size: 1.5rem; border: 2px solid #ddd; border-radius: 8px; width: 280px; text-align: center;"
                                                oninput="calculateStampPostage()">
                                     </div>
@@ -4456,7 +4506,7 @@
             <!-- Faxing Calculator -->
             <div id="faxingCalculator" style="display: none;">
                 <div class="faxing-page">
-                    <h2 style="color: #000000; font-size: 2rem; margin-bottom: 15px; text-align: center; padding-top: var(--space-sm);">Document Faxing Services</h2>
+                    <h2 style="color: #000000; font-size: 2rem; margin-bottom: 15px; text-align: center; padding-top: var(--space-sm);">Faxing Services</h2>
                     <p style="margin-bottom: 20px; font-size: 1.2rem; color: #666; text-align: center; font-weight: 500;">Note: Copies required for single-sided faxing are free</p>
 
                     <!-- Fax Pricing Table -->
@@ -4493,6 +4543,11 @@
                                 </tr>
                             </tbody>
                             </table>
+
+                            <!-- Cumulative Tiered Pricing note -->
+                            <div style="text-align: center; margin-top: 4px; margin-bottom: -10px;">
+                                <div style="font-size: 0.8rem; color: #666; font-style: italic;">Cumulative Tiered Pricing</div>
+                            </div>
                         </div>
                     </div>
 
@@ -4566,9 +4621,14 @@
                                         <!-- Pricing rows will be populated by JavaScript -->
                                     </tbody>
                                 </table>
+
+                                <!-- Cumulative Tiered Pricing note -->
+                                <div style="text-align: center; margin-top: 4px; margin-bottom: -15px;">
+                                    <div style="font-size: 0.8rem; color: #666; font-style: italic;">Cumulative Tiered Pricing</div>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <!-- Right Side: Shredding Calculator -->
                         <div class="sticker-pricing-section">
                             <div style="text-align: center;">
@@ -5423,7 +5483,7 @@
             ],
             'white-glove': [
                 { range: '1 - 25', price: 1.29 },
-                { range: '26 - 100', price: 1.14 },
+                { range: '26 - 100', price: 1.15 },
                 { range: '100+', price: 0.99 }
             ]
         };
@@ -5478,7 +5538,7 @@
                 const row = tbody.insertRow();
                 row.innerHTML = `
                     <td class="sticker-quantity-cell">${item.range} lbs</td>
-                    <td class="sticker-price-cell">$${item.price.toFixed(2)}</td>
+                    <td class="sticker-price-cell">$${item.price.toFixed(2)}/lb</td>
                 `;
             });
         }
@@ -5505,14 +5565,14 @@
 
             const data = shreddingPricing[selectedShreddingMode];
             let totalPrice = 0;
-            let currentRate = data[0].price;
+            let pricePerLbDisplay = '';
             let mathDisplay = '';
 
             // Cumulative billing calculation with math breakdown
             if (weight <= 25) {
                 // First tier: 1-25 lbs at tier 1 rate
                 totalPrice = weight * data[0].price;
-                currentRate = data[0].price;
+                pricePerLbDisplay = `$${data[0].price.toFixed(2)}`;
                 mathDisplay = `${weight} × $${data[0].price.toFixed(2)} = $${totalPrice.toFixed(2)}`;
             } else if (weight <= 100) {
                 // First 25 lbs at tier 1 rate + remaining at tier 2 rate
@@ -5520,7 +5580,7 @@
                 const tier2Weight = weight - 25;
                 const tier2Cost = tier2Weight * data[1].price;
                 totalPrice = tier1Cost + tier2Cost;
-                currentRate = data[1].price;
+                pricePerLbDisplay = `$${data[0].price.toFixed(2)}, $${data[1].price.toFixed(2)}`;
                 mathDisplay = `25×$${data[0].price.toFixed(2)} + ${tier2Weight}×$${data[1].price.toFixed(2)} = $${totalPrice.toFixed(2)}`;
             } else {
                 // First 25 lbs at tier 1 + next 75 lbs at tier 2 + remaining at tier 3
@@ -5529,7 +5589,7 @@
                 const tier3Weight = weight - 100;
                 const tier3Cost = tier3Weight * data[2].price;
                 totalPrice = tier1Cost + tier2Cost + tier3Cost;
-                currentRate = data[2].price;
+                pricePerLbDisplay = `$${data[0].price.toFixed(2)}, $${data[1].price.toFixed(2)}, $${data[2].price.toFixed(2)}`;
                 mathDisplay = `25×$${data[0].price.toFixed(2)} + 75×$${data[1].price.toFixed(2)} + ${tier3Weight}×$${data[2].price.toFixed(2)} = $${totalPrice.toFixed(2)}`;
             }
 
@@ -5539,10 +5599,10 @@
                 mathStepsElement.style.opacity = '1';
             }
 
-            if (pricingNoteElement) pricingNoteElement.style.opacity = '1';
             if (weightDisplayEl) weightDisplayEl.textContent = `${weight} lbs`;
-            if (pricePerLbEl) pricePerLbEl.textContent = `$${currentRate.toFixed(2)}`;
+            if (pricePerLbEl) pricePerLbEl.textContent = pricePerLbDisplay;
             if (totalPriceEl) totalPriceEl.textContent = `$${totalPrice.toFixed(2)}`;
+            if (pricingNoteElement) pricingNoteElement.style.opacity = '1';
         }
 
         function resetShredding() {
@@ -5621,6 +5681,10 @@
 
             // Reset toggle buttons to default
             toggleStampType('small');
+
+            // Reset dismiss flag and update banner
+            stampBannerDismissed = false;
+            updateStampWarningBanner();
 
             console.log('Reset stamps calculator');
         }
@@ -5839,37 +5903,36 @@
 
         // Toggle between calculators with sidebar navigation
         function toggleSection(section) {
-            // Reset the calculator we're leaving (if it's a calculator page)
-            if (currentSection && currentSection !== section) {
-                switch(currentSection) {
-                    case 'standard':
-                        resetStandardPrinting();
-                        break;
-                    case 'large-format':
-                        resetLargeFormat();
-                        break;
-                    case 'sticker-sheets':
-                        resetStickerSheets();
-                        break;
-                    case 'scanning':
-                        resetScanningServices();
-                        break;
-                    case 'graphic-design':
-                        resetGraphicDesign();
-                        break;
-                    case 'business-cards':
-                        resetBusinessCards();
-                        break;
-                    case 'shredding':
-                        resetShredding();
-                        break;
-                }
-                
-                // Reset secret code when navigating away from any section
-                if (currentSection !== section) {
-                    resetSecretCode();
-                }
+            // Always reset calculator sections when clicked (including same section)
+            switch(section) {
+                case 'standard':
+                    resetStandardPrinting();
+                    break;
+                case 'large-format':
+                    resetLargeFormat();
+                    break;
+                case 'sticker-sheets':
+                    resetStickerSheets();
+                    break;
+                case 'scanning':
+                    resetScanningServices();
+                    break;
+                case 'graphic-design':
+                    resetGraphicDesign();
+                    break;
+                case 'business-cards':
+                    resetBusinessCards();
+                    break;
+                case 'faxing':
+                    resetFaxing();
+                    break;
+                case 'shredding':
+                    resetShredding();
+                    break;
             }
+
+            // Reset secret code when navigating to any section
+            resetSecretCode();
 
             // Hide all sections
             const sections = ['homepage', 'standardCalculator', 'largeFormatCalculator', 'scanningCalculator', 'graphicDesignCalculator', 'businessCardsCalculator', 'stickerSheetsCalculator', 'stampsCalculator', 'faxingCalculator', 'industryNorms', 'shreddingCalculator'];
@@ -5889,9 +5952,9 @@
                 document.getElementById('homepage').style.display = 'block';
                 document.getElementById('headerTitle').innerHTML = 'Pricing Guide  <span class="last-char">🏠</span>';
                 document.getElementById('headerSubtitle').textContent = 'Choose a service to get started with your pricing needs';
-                // On homepage, always show logo regardless of sidebar state
-                document.querySelector('.header-logo').style.opacity = '1';
-                document.querySelector('.header-logo').style.visibility = 'visible';
+                // Reset logo to default CSS behavior (show when sidebar closed, hide when open)
+                document.querySelector('.header-logo').style.opacity = '';
+                document.querySelector('.header-logo').style.visibility = '';
             } else if (section === 'large-format') {
                 document.getElementById('largeFormatCalculator').style.display = 'block';
                 document.getElementById('headerTitle').innerHTML = 'Large Format Prints  <span class="last-char">📜</span>';
@@ -6807,6 +6870,45 @@
         function closeBanner() {
             hideRecommendationBanner();
         }
+
+        // Stamp weight warning banner functions
+        let stampBannerDismissed = false;
+
+        function updateStampWarningBanner() {
+            const weightInput = document.getElementById('stampWeightInput');
+            const weight = weightInput ? parseFloat(weightInput.value) : 0;
+            const banner = document.getElementById('stampWeightWarningBanner');
+
+            if (!banner) return;
+
+            // Show if weight > 13 and not manually dismissed
+            if (weight > 13 && !stampBannerDismissed) {
+                banner.style.display = 'block';
+                // Force reflow then add show class for animation
+                banner.offsetHeight;
+                banner.classList.add('show');
+            } else {
+                banner.classList.remove('show');
+                // Hide after animation completes
+                setTimeout(() => {
+                    if (!banner.classList.contains('show')) {
+                        banner.style.display = 'none';
+                    }
+                }, 500);
+            }
+        }
+
+        function closeStampWarningBanner() {
+            stampBannerDismissed = true;
+
+            // Clear the input box
+            const weightInput = document.getElementById('stampWeightInput');
+            if (weightInput) {
+                weightInput.value = '';
+            }
+
+            updateStampWarningBanner();
+        }
         
         // Update selection history display
         function updateSelectionHistory(listId, selections) {
@@ -7327,7 +7429,8 @@
         function calculateStickerPrice() {
             const quantityInput = document.getElementById('stickerQuantityInput');
             const desiredStickers = parseInt(quantityInput.value);
-            
+            const pricingNoteElement = document.getElementById('stickerCalculatorPricingNote');
+
             if (!desiredStickers || desiredStickers <= 0) {
                 // Show default values when no input
                 if (selectedStickerSize && stickerData[selectedStickerSize]) {
@@ -7342,12 +7445,14 @@
                     document.getElementById('sheetsRequired').textContent = '-';
                     document.getElementById('totalStickers').textContent = '-';
                     document.getElementById('stickerFinalPrice').textContent = '-';
+                    if (pricingNoteElement) pricingNoteElement.style.opacity = '0';
                 } else {
                     document.getElementById('stickersPerSheet').textContent = '-';
                     document.getElementById('pricePerSheet').textContent = '-';
                     document.getElementById('sheetsRequired').textContent = '-';
                     document.getElementById('totalStickers').textContent = '-';
                     document.getElementById('stickerFinalPrice').textContent = '-';
+                    if (pricingNoteElement) pricingNoteElement.style.opacity = '0';
                 }
                 return;
             }
@@ -7421,6 +7526,7 @@
             document.getElementById('sheetsRequired').textContent = sheetsNeeded;
             document.getElementById('totalStickers').textContent = totalStickers + (totalStickers > desiredStickers ? ` (${totalStickers - desiredStickers} extra)` : '');
             document.getElementById('stickerFinalPrice').textContent = `$${finalPrice.toFixed(2)}`;
+            if (pricingNoteElement) pricingNoteElement.style.opacity = '1';
         }
 
         function calculateLargeFormatScans() {
@@ -7727,16 +7833,25 @@
 
             // Generate math breakdown
             let mathDisplay = '';
+            const totalHours = totalMinutes / 60;
+
+            // Helper function to format numbers without unnecessary decimals
+            const formatNumber = (num) => {
+                return num % 1 === 0 ? num.toString() : num.toFixed(2);
+            };
+
             if (applicableTier) {
                 const tierRate = applicableTier.price / applicableTier.time;
-                mathDisplay = `${totalMinutes} mins × $${tierRate.toFixed(2)}/min = $${totalPrice.toFixed(2)}`;
+                const hourlyRate = tierRate * 60; // Convert per-minute rate to per-hour rate
+                mathDisplay = `${formatNumber(totalHours)} hrs × $${formatNumber(hourlyRate)}/hr = $${formatNumber(totalPrice)}`;
             } else {
                 const firstTierRate = tiers[0].price / tiers[0].time;
-                mathDisplay = `${totalMinutes} mins × $${firstTierRate.toFixed(2)}/min = $${totalPrice.toFixed(2)}`;
+                const hourlyRate = firstTierRate * 60; // Convert per-minute rate to per-hour rate
+                mathDisplay = `${formatNumber(totalHours)} hrs × $${formatNumber(hourlyRate)}/hr = $${formatNumber(totalPrice)}`;
             }
 
             // Update display
-            document.getElementById('gdFinalPrice').textContent = `$${totalPrice.toFixed(2)}`;
+            document.getElementById('gdFinalPrice').textContent = `$${formatNumber(totalPrice)}`;
             if (mathStepsElement) {
                 mathStepsElement.textContent = mathDisplay;
                 mathStepsElement.style.opacity = '1';
@@ -9644,6 +9759,9 @@
                 if (totalPriceEl) totalPriceEl.textContent = '-';
                 if (postageRequiredEl) postageRequiredEl.textContent = '-';
                 if (quantityNeededEl) quantityNeededEl.textContent = '-';
+                // Reset dismiss flag when no input
+                stampBannerDismissed = false;
+                updateStampWarningBanner();
                 return;
             }
             
@@ -9670,21 +9788,28 @@
                     stampNumberEl.style.fontSize = '1.8rem'; // Reset to normal size for valid data
                 }
                 if (totalPriceEl) totalPriceEl.textContent = `$${customerPrice}`;
-                
+
                 // Update postage required
                 if (postageRequiredEl) postageRequiredEl.textContent = `$${selectedTier.postage.toFixed(2)}`;
-                
+
                 // Update postage amount fulfilled (show stamps × $0.78 value)
                 if (quantityNeededEl) quantityNeededEl.textContent = `$${actualValue}`;
+
+                // Reset dismiss flag for valid weights
+                stampBannerDismissed = false;
             } else {
+                // Show "-" instead of error message
                 if (stampNumberEl) {
-                    stampNumberEl.textContent = 'Weight out of range';
-                    stampNumberEl.style.fontSize = '1.2rem'; // Smaller font for error message
+                    stampNumberEl.textContent = '-';
+                    stampNumberEl.style.fontSize = '1.8rem'; // Keep normal size
                 }
                 if (totalPriceEl) totalPriceEl.textContent = '-';
                 if (postageRequiredEl) postageRequiredEl.textContent = '-';
                 if (quantityNeededEl) quantityNeededEl.textContent = '-';
             }
+
+            // Update banner based on current state
+            updateStampWarningBanner();
         }
 
         // Initialize stamp table on page load
