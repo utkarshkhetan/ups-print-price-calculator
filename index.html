@@ -135,15 +135,14 @@
         }
 
         .sidebar-logo {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            display: block;
+            margin: auto auto var(--space-md) auto;
             height: 50px;
             width: auto;
             object-fit: contain;
             opacity: 1;
             transition: all var(--transition-base);
+            flex-shrink: 0;
         }
         
         .sidebar:not(.open) .sidebar-logo {
@@ -199,6 +198,8 @@
             box-shadow: var(--shadow-2xl);
             overflow-y: auto;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar.open {
@@ -245,6 +246,9 @@
 
         .sidebar-nav {
             padding: var(--space-lg) 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .nav-item {
@@ -631,7 +635,7 @@
             border: none;
             border-radius: var(--radius-xl);
             color: var(--white);
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 700;
             padding: var(--space-xl) var(--space-lg);
             cursor: pointer;
@@ -1282,17 +1286,27 @@
             transform: translateX(-50%);
             display: flex;
             gap: var(--space-xl);
-            background: rgba(0, 0, 0, 0.8);
-            padding: var(--space-md) var(--space-xl);
-            border-radius: var(--radius-lg);
-            border: 1px solid #f39c12;
+            background: linear-gradient(135deg, rgba(0, 0, 50, 0.95), rgba(0, 0, 0, 0.9));
+            padding: var(--space-lg) var(--space-xl);
+            border-radius: var(--radius-xl);
+            border: 2px solid #ffff00;
+            box-shadow:
+                0 8px 32px rgba(255, 255, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .pacman-score, .pacman-level, .pacman-lives {
-            color: var(--white);
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-shadow: 0 0 10px #f39c12;
+            color: #ffff00;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-shadow: 0 0 10px #ffff00;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px #ffff00; }
+            to { text-shadow: 0 0 20px #ffff00, 0 0 30px #ffff00; }
         }
 
         .pacman-instructions, .pacman-pause, .pacman-game-over, .pacman-level-complete, .pacman-leaderboard {
@@ -1316,24 +1330,31 @@
         }
 
         .pacman-start-btn, .pacman-submit-score, .pacman-play-again, .pacman-close-leaderboard, .pacman-continue {
-            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-            border: none;
-            border-radius: var(--radius-lg);
-            color: var(--white);
-            font-size: 1.4rem;
-            font-weight: 600;
-            padding: var(--space-md) var(--space-xl);
+            background: linear-gradient(135deg, #ffff00 0%, #ffa500 100%);
+            border: 3px solid #ffffff;
+            border-radius: var(--radius-xl);
+            color: #000000;
+            font-size: 1.6rem;
+            font-weight: 800;
+            padding: var(--space-lg) var(--space-2xl);
             cursor: pointer;
-            transition: all var(--transition-base);
-            margin: var(--space-sm);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: var(--space-md);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            box-shadow:
+                0 8px 25px rgba(255, 255, 0, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .pacman-start-btn:hover, .pacman-submit-score:hover, .pacman-play-again:hover, .pacman-close-leaderboard:hover, .pacman-continue:hover {
-            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(243, 156, 18, 0.6);
+            background: linear-gradient(135deg, #ffffff 0%, #ffff00 100%);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow:
+                0 12px 35px rgba(255, 255, 0, 0.6),
+                0 0 40px rgba(255, 255, 255, 0.3);
+            border-color: #ffff00;
         }
 
         .pacman-player-name {
@@ -2481,6 +2502,76 @@
             gap: var(--space-sm);
         }
 
+        /* Fax pricing table - copy of sticker-pricing-table for faxing page only */
+        .fax-pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .fax-pricing-table th {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-navy) 100%);
+            color: var(--white);
+            padding: var(--space-md) var(--space-md) var(--space-md) var(--space-md) !important;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .fax-pricing-table td {
+            padding: var(--space-md);
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .fax-pricing-table tr:nth-child(even) {
+            background: var(--gray-50);
+        }
+
+        .fax-pricing-table tr:hover {
+            background: var(--surface-blue);
+        }
+
+        /* Graphic design pricing table - copy of sticker-pricing-table for graphic design page only */
+        .graphic-design-pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .graphic-design-pricing-table th {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-navy) 100%);
+            color: var(--white);
+            padding: var(--space-md) var(--space-md) var(--space-md) var(--space-md) !important;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .graphic-design-pricing-table td {
+            padding: var(--space-md);
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .graphic-design-pricing-table tr:nth-child(even) {
+            background: var(--gray-50);
+        }
+
+        .graphic-design-pricing-table tr:hover {
+            background: var(--surface-blue);
+        }
+
         .sticker-size-btn {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 50%, var(--light-blue) 100%);
             border: none;
@@ -2797,6 +2888,24 @@
                 padding: var(--space-sm);
             }
 
+            .fax-pricing-table {
+                font-size: 0.9rem;
+            }
+
+            .fax-pricing-table th,
+            .fax-pricing-table td {
+                padding: var(--space-sm);
+            }
+
+            .graphic-design-pricing-table {
+                font-size: 0.9rem;
+            }
+
+            .graphic-design-pricing-table th,
+            .graphic-design-pricing-table td {
+                padding: var(--space-sm);
+            }
+
             .sticker-size-btn {
                 font-size: 0.8rem;
                 padding: var(--space-xs) var(--space-sm);
@@ -2872,6 +2981,350 @@
                 margin-left: 0;
             }
         }
+
+        /* iPad Optimizations (820x1180 portrait) */
+        @media (min-width: 800px) and (max-width: 900px) and (min-height: 1100px) {
+            /* Main content positioning for collapsed sidebar */
+            .main-content {
+                margin-left: var(--sidebar-collapsed); /* Account for 60px collapsed sidebar */
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .main-content.sidebar-open {
+                margin-left: var(--sidebar-width); /* Full sidebar width when open */
+            }
+
+            /* Content optimized for available width (820px - 60px collapsed sidebar = 760px) */
+            .content {
+                max-width: 720px; /* 760px - padding */
+                transform: none; /* Remove desktop centering offset */
+            }
+
+            .main-content.sidebar-open .content {
+                max-width: 480px; /* Narrower when sidebar is open (820px - 300px - padding) */
+            }
+
+            /* Optimize homepage grid for iPad */
+            .homepage-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-xl);
+                max-width: 750px;
+            }
+
+            /* Make homepage buttons equal height with minimal padding */
+            .homepage-button {
+                aspect-ratio: unset; /* Remove square constraint */
+                display: flex;
+                flex-direction: column; /* Stack icon and title vertically */
+                align-items: center;
+                justify-content: center;
+                gap: var(--space-xs); /* Tight space between icon and title */
+                padding: var(--space-lg); /* Minimal padding around content */
+                min-height: 160px; /* Fixed height to ensure all tiles are equal */
+                text-align: center; /* Center text */
+            }
+
+            /* Make icon even larger in iPad mode */
+            .button-icon {
+                font-size: 8rem; /* Bigger emoji to fill space */
+                width: auto; /* Let emoji size naturally */
+                height: auto; /* Let emoji size naturally */
+                margin-bottom: 0; /* Remove default margin */
+                line-height: 1; /* Tighter line height */
+            }
+
+            .button-content {
+                text-align: center;
+                width: 100%;
+                margin: 0;
+            }
+
+            .button-content h3 {
+                margin: 0;
+                font-size: 1.6rem; /* Larger title text */
+                font-weight: 700; /* Bolder text */
+                line-height: 1.2; /* Tighter line height */
+                color: var(--primary-navy); /* Original navy blue text */
+            }
+
+            /* Paper grid optimization */
+            .paper-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-lg);
+            }
+
+            /* Calculator grids */
+            .size-grid {
+                gap: var(--space-lg);
+            }
+
+            /* Results sections */
+            .calculation-breakdown {
+                padding: var(--space-lg);
+            }
+
+            /* Form spacing */
+            .color-section, .size-section, .quantity-section {
+                margin-bottom: var(--space-xl);
+            }
+
+            /* Sticker grid optimization */
+            .sticker-size-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-sm);
+            }
+
+            /* Business card options */
+            .bc-options {
+                gap: var(--space-lg);
+            }
+
+            /* Industry norms - keep 1 column for readability */
+            .industry-norms-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            /* Header logo sizing - 58% smaller (30% + 15% + 20% additional) */
+            .header-logo {
+                height: 23px; /* 58% smaller than default 49px */
+            }
+
+            /* Footer text - much smaller for iPad */
+            .footer-text {
+                font-size: 0.65rem; /* Much smaller than default 0.84rem */
+                padding: calc(var(--space-sm) * 0.7) calc(var(--space-md) * 0.7);
+            }
+
+            /* Hide homepage tile descriptions on iPad */
+            .button-content p {
+                display: none;
+            }
+
+            /* Optimize cutting fee bubbles for iPad to fit on one line */
+            #priceCalculationLayout,
+            #lfPriceCalculationLayout {
+                gap: var(--space-sm) !important; /* Reduce gap between bubbles */
+                flex-wrap: nowrap !important; /* Prevent wrapping */
+            }
+
+            #priceCalculationLayout > div[style*="flex-direction: column"],
+            #lfPriceCalculationLayout > div[style*="flex-direction: column"] {
+                /* Make bubble containers smaller */
+                min-width: 140px !important;
+            }
+
+            #priceCalculationLayout > div[style*="flex-direction: column"] > div:first-child,
+            #lfPriceCalculationLayout > div[style*="flex-direction: column"] > div:first-child {
+                /* Make bubble labels smaller */
+                font-size: 1.1rem !important;
+                margin-bottom: calc(var(--space-sm) * 0.8) !important;
+            }
+
+            #priceCalculationLayout > div[style*="background"],
+            #lfPriceCalculationLayout > div[style*="background"] {
+                /* Make the actual bubbles smaller */
+                padding: calc(var(--space-lg) * 0.8) calc(var(--space-xl) * 0.7) !important;
+                min-width: 140px !important;
+            }
+
+            #priceCalculationLayout > div[style*="background"] > div,
+            #lfPriceCalculationLayout > div[style*="background"] > div {
+                /* Make bubble text slightly smaller */
+                font-size: 1.4rem !important;
+            }
+
+            /* Reduce operator signs size */
+            #priceCalculationLayout > div[style*="font-size: 2rem"],
+            #lfPriceCalculationLayout > div[style*="font-size: 2rem"] {
+                font-size: 1.6rem !important;
+            }
+
+            /* Reduce paper button font size for better layout on iPad */
+            .paper-btn {
+                font-size: 1.7rem !important; /* Reduced from 2rem */
+                padding: calc(var(--space-xl) * 0.9) var(--space-lg) !important; /* Slightly reduce vertical padding */
+            }
+
+            /* Adjust operator positioning for iPad's smaller bubble sizes */
+            #priceCalculationLayout > div[style*="font-size: 2rem"] {
+                /* Reduced margin-top for iPad's smaller labels and bubbles, then lowered by 5px */
+                margin-top: calc(1.1rem + calc(var(--space-sm) * 0.8) + 5px) !important; /* Smaller label size + reduced margin + 5px lower */
+            }
+
+            /* Large format has extra 2.5em divs, so operators need to be positioned higher */
+            #lfPriceCalculationLayout > div[style*="font-size: 2rem"] {
+                /* Account for the extra 2.5em divs in large format structure, then move 10px down */
+                margin-top: calc(1.1rem + calc(var(--space-sm) * 0.8) + 5px - 2.5em + 10px) !important; /* Compensate for extra height elements + 10px down */
+            }
+
+            /* Business card options - 2x2 grid layout for iPad */
+            .bc-options {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important; /* 2 columns */
+                grid-template-rows: 1fr 1fr !important; /* 2 rows */
+                gap: var(--space-md) !important; /* Consistent gap */
+                max-width: 600px !important; /* Constrain overall width */
+                margin: 0 !important; /* No margin */
+            }
+
+            .bc-checkbox-container {
+                padding: 18px 24px !important; /* Original padding restored for better touch targets */
+                font-size: 1.3rem !important; /* Back to original font size */
+                justify-content: center !important; /* Center content within each button */
+                text-align: center !important; /* Center text */
+                white-space: nowrap !important; /* Prevent text wrapping within buttons */
+            }
+
+            .bc-checkbox-label {
+                font-size: 1.3rem !important; /* Back to original font size */
+                white-space: nowrap !important; /* Ensure labels don't wrap */
+            }
+
+            /* Business card table - fit within container on iPad */
+            #businessCardsCalculator .bc-pricing-table {
+                transform: scale(1.02) !important; /* Slightly scale up table for better readability */
+                margin: var(--space-md) 0 !important; /* Adjust margins */
+                width: 100% !important;
+            }
+
+            #businessCardsCalculator .bc-pricing-table td,
+            #businessCardsCalculator .bc-pricing-table th {
+                padding: 12px 8px !important; /* Reduce cell padding */
+                font-size: 1.4rem !important; /* Larger text for better readability */
+            }
+
+            /* Business card dynamic title - stretch to full width on iPad */
+            .bc-dynamic-title {
+                font-size: 1.48rem !important;
+                white-space: normal !important; /* Allow wrapping if needed */
+                overflow: visible !important; /* Show full content */
+                text-overflow: unset !important; /* Remove ellipsis */
+                text-align: center !important; /* Keep centered */
+                width: 100% !important; /* Stretch to full width */
+                line-height: 1.3 !important; /* Better line spacing if it wraps */
+                margin-bottom: var(--space-sm) !important; /* Reduce bottom margin */
+            }
+
+            /* Reduce spacing below dynamic title on iPad */
+            #businessCardsCalculator .bc-pricing-table {
+                margin-top: var(--space-sm) !important; /* Reduce top margin */
+            }
+
+            #businessCardsCalculator .sticker-pricing-section {
+                padding-bottom: var(--space-lg) !important; /* Reduce bottom padding */
+            }
+
+            /* Reduce sticker calculator button font size on iPad */
+            .sticker-size-btn {
+                font-size: 1.1rem !important; /* Reduced from 1.3rem */
+            }
+
+            .sticker-size-btn small {
+                font-size: 0.85rem !important; /* Reduce small text proportionally */
+            }
+
+            /* Sticker pricing table font size for iPad */
+            .sticker-pricing-table td {
+                font-size: 1.09rem !important;
+            }
+
+            /* Shorten sticker section titles for iPad */
+            .sticker-calculator-title {
+                font-size: 0 !important;
+                line-height: 0 !important;
+            }
+
+            .sticker-calculator-title::before {
+                content: "Price Calculator";
+                font-size: 1.8rem !important;
+                line-height: normal !important;
+                display: block !important;
+            }
+
+            .sticker-chart-title {
+                font-size: 0 !important;
+                line-height: 0 !important;
+            }
+
+            .sticker-chart-title::before {
+                content: "Price Chart";
+                font-size: 1.8rem !important;
+                line-height: normal !important;
+                display: block !important;
+            }
+
+            /* Make sticker quantity input smaller on iPad */
+            #stickerQuantityInput {
+                width: 180px !important;
+                font-size: 1.1rem !important;
+                padding: 12px 16px !important;
+            }
+
+            /* Remove padding from stamps page on iPad */
+            .stamps-page {
+                padding: 0 !important;
+            }
+
+            /* Fax toggle button font size for iPad */
+            .toggle-btn {
+                font-size: 1.06rem !important;
+            }
+
+            /* Fax pricing table font size for iPad */
+            .fax-pricing-table td {
+                font-size: 1.4rem !important;
+            }
+
+            /* Shredding table padding for iPad */
+            #shreddingPricingTable th,
+            #shreddingPricingTable td {
+                padding: 11px 15px !important;
+            }
+
+            /* Shorten shredding title for iPad */
+            #shreddingTableTitle {
+                font-size: 0 !important;
+                line-height: 0 !important;
+            }
+
+            #shreddingTableTitle::before {
+                font-size: 1.8rem !important;
+                line-height: normal !important;
+                display: block !important;
+            }
+
+            /* Dynamic content based on mode - will be handled by JavaScript update */
+            #shreddingTableTitle[data-mode="self-service"]::before {
+                content: "Self-Service\APrice Chart";
+                white-space: pre-line;
+            }
+
+            #shreddingTableTitle[data-mode="white-glove"]::before {
+                content: "White-Glove\APrice Chart";
+                white-space: pre-line;
+            }
+
+            /* Scanning table font size for iPad */
+            #scanningCalculator .sticker-pricing-table td {
+                font-size: 1.2rem !important;
+            }
+
+            /* Graphic design pricing table font size for iPad */
+            .graphic-design-pricing-table td {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        /* Fix vertical alignment of operators with bubbles in cutting fee sections */
+        #priceCalculationLayout > div[style*="font-size: 2rem"],
+        #lfPriceCalculationLayout > div[style*="font-size: 2rem"] {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Account for label height - approximate height of label + margin */
+            margin-top: calc(1.3rem + var(--space-sm)); /* Label font-size + margin-bottom */
+        }
         
         /* Homepage Styles */
         .homepage-section {
@@ -2900,7 +3353,7 @@
             padding: var(--space-xl) var(--space-2xl);
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 
+            box-shadow:
                 0 8px 32px rgba(52, 152, 219, 0.15),
                 0 2px 8px rgba(0, 0, 0, 0.1);
             transform: translateY(0) scale(1);
@@ -3001,19 +3454,12 @@
             font-weight: 700;
             margin-bottom: var(--space-sm);
             line-height: 1.2;
-            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-blue) 50%, var(--light-blue) 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 300% 300%;
-            animation: gradientShift 3s ease-in-out infinite;
-            text-shadow: 0 2px 4px rgba(41, 128, 185, 0.3);
-            transition: all var(--transition-slow);
+            transition: transform var(--transition-slow);
         }
-        
+
         .homepage-button:hover .button-content h3 {
-            animation-duration: 1s;
             transform: scale(1.05);
+            /* Keep the 5s animation running, don't override duration */
         }
         
         .button-content p {
@@ -3966,7 +4412,7 @@
                         <div class="sticker-pricing-section">
                             <h3 style="color: var(--primary-navy); font-size: 1.8rem; margin-top: 0.25rem; margin-bottom: var(--space-xl); text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 6px;">Graphic Design Price Chart</h3>
                             <div style="flex: 1; display: flex; flex-direction: column;">
-                                <table class="sticker-pricing-table" style="flex-grow: 1;">
+                                <table class="graphic-design-pricing-table" style="flex-grow: 1;">
                                     <thead>
                                         <tr>
                                             <th>Time</th>
@@ -4195,7 +4641,7 @@
                         <div class="sticker-left-column">
                             <!-- Sticker Price Calculator -->
                             <div class="sticker-pricing-section sticker-column-section">
-                                <h3 style="color: var(--primary-navy); font-size: 1.8rem; margin-top: 0.25rem; margin-bottom: var(--space-lg); text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 6px;">Sticker Price Calculator</h3>
+                                <h3 class="sticker-calculator-title" style="color: var(--primary-navy); font-size: 1.8rem; margin-top: 0.25rem; margin-bottom: var(--space-lg); text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 6px;">Sticker Price Calculator</h3>
 
                                 <!-- Sticker Quantity Input -->
                                 <div style="margin-bottom: 20px; text-align: center;">
@@ -4232,7 +4678,7 @@
 
                             <!-- Sticker Sheet Price Chart -->
                             <div class="sticker-pricing-section sticker-column-section">
-                                <h3 style="color: var(--primary-navy); font-size: 1.8rem; margin-top: 0.25rem; margin-bottom: var(--space-lg); border-bottom: 2px solid #3498db; padding-bottom: 6px;">Sticker Sheet Price Chart</h3>
+                                <h3 class="sticker-chart-title" style="color: var(--primary-navy); font-size: 1.8rem; margin-top: 0.25rem; margin-bottom: var(--space-lg); border-bottom: 2px solid #3498db; padding-bottom: 6px;">Sticker Sheet Price Chart</h3>
                                 <table class="sticker-pricing-table">
                                     <thead>
                                         <tr>
@@ -4513,7 +4959,7 @@
                     <div class="sticker-pricing-section" style="max-width: 1000px; margin-left: auto; margin-right: auto;">
                         <h3 style="color: var(--primary-navy); font-size: 1.8rem; margin-bottom: var(--space-lg); text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 6px;">Faxing Price Chart</h3>
                         <div style="flex: 1; display: flex; flex-direction: column;">
-                            <table class="sticker-pricing-table" style="flex-grow: 1;">
+                            <table class="fax-pricing-table" style="flex-grow: 1;">
                             <thead>
                                 <tr>
                                     <th>Type</th>
@@ -4608,7 +5054,7 @@
                     <div class="sticker-content-grid">
                         <!-- Left Side: Shredding Pricing Table -->
                         <div class="sticker-pricing-section">
-                            <h3 id="shreddingTableTitle" style="color: var(--primary-navy); font-size: 1.8rem; margin-top: 0.25rem; margin-bottom: var(--space-lg); text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 6px;">Self-Service Shredding Price Chart</h3>
+                            <h3 id="shreddingTableTitle" data-mode="self-service" style="color: var(--primary-navy); font-size: 1.8rem; margin-top: 0.25rem; margin-bottom: var(--space-lg); text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 6px;">Self-Service Shredding Price Chart</h3>
                             <div style="flex: 1; display: flex; flex-direction: column;">
                                 <table class="sticker-pricing-table" id="shreddingPricingTable">
                                     <thead>
@@ -5521,6 +5967,7 @@
             const tableTitle = document.getElementById('shreddingTableTitle');
             if (tableTitle) {
                 tableTitle.textContent = mode === 'self-service' ? 'Self-Service Shredding Price Chart' : 'White-Glove Shredding Price Chart';
+                tableTitle.setAttribute('data-mode', mode);
             }
             
             populateShreddingTable();
@@ -5763,6 +6210,12 @@
             }
         }
 
+        // iPad Detection Function
+        function isIPad() {
+            // Check for iPad-like screen size (around 820px width)
+            return window.innerWidth >= 800 && window.innerWidth <= 900 && window.innerHeight >= 1100;
+        }
+
         // Sidebar functionality
         let sidebarOpen = true;
 
@@ -5772,13 +6225,18 @@
             const sidebarOverlay = document.getElementById('sidebarOverlay');
             const toggleIcon = document.getElementById('toggleIcon');
 
+            // Start with sidebar closed on iPad
+            if (isIPad()) {
+                closeSidebar();
+            }
+
             sidebarToggle.addEventListener('click', toggleSidebar);
             sidebarOverlay.addEventListener('click', closeSidebar);
 
             // Auto-close sidebar on mobile when clicking nav items
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.addEventListener('click', () => {
-                    if (window.innerWidth <= 768) {
+                    if (window.innerWidth <= 768 || isIPad()) {
                         closeSidebar();
                     }
                     updateActiveNavItem(item.dataset.section);
@@ -8905,7 +9363,9 @@
                 this.lives = 3;
                 this.animationId = null;
                 this.frameCounter = 0;
-                this.moveSpeed = 6; // Move every 6 frames (slower movement)
+                this.moveSpeed = 12; // Will be set by updateSpeedForLevel()
+                this.deathPause = false;
+                this.deathPauseTimer = 0;
                 
                 // Game grid properties
                 this.gridSize = 32;
@@ -8934,6 +9394,16 @@
                 this.powerPellets = [];
                 this.vulnerableTime = 0;
                 this.levelScore = 0;
+
+                // Particle system for visual effects
+                this.particles = [];
+
+                // Image loading for sprites
+                this.images = {};
+                this.imagesLoaded = false;
+
+                // Smooth movement properties
+                this.smoothMovement = true;
                 
                 // Simple maze layout (1 = wall, 0 = empty, 2 = pellet, 3 = power pellet)
                 this.mazeLayout = [
@@ -8965,6 +9435,7 @@
                 this.canvas = document.getElementById('pacmanCanvas');
                 this.ctx = this.canvas.getContext('2d');
                 this.setupCanvas();
+                this.loadImages();
                 this.setupEventListeners();
                 this.resetGame();
             }
@@ -8973,14 +9444,35 @@
                 // Make canvas take up most of the screen while maintaining aspect ratio
                 const maxWidth = Math.min(window.innerWidth - 40, 1000);
                 const maxHeight = Math.min(window.innerHeight - 40, 800);
-                
+
                 // Calculate optimal grid size to fit screen
                 const gridWidth = maxWidth / this.cols;
                 const gridHeight = maxHeight / this.rows;
                 this.gridSize = Math.floor(Math.min(gridWidth, gridHeight));
-                
+
                 this.canvas.width = this.cols * this.gridSize;
                 this.canvas.height = this.rows * this.gridSize;
+            }
+
+            loadImages() {
+                const imageList = [
+                    'gun-emoji.png',
+                    'cat.png',
+                    'angry-emoji.png'
+                ];
+
+                let loadedCount = 0;
+                imageList.forEach(src => {
+                    const img = new Image();
+                    img.onload = () => {
+                        loadedCount++;
+                        if (loadedCount === imageList.length) {
+                            this.imagesLoaded = true;
+                        }
+                    };
+                    img.src = src;
+                    this.images[src] = img;
+                });
             }
 
             setupEventListeners() {
@@ -9033,16 +9525,43 @@
                 this.player.y = 15;
                 this.player.direction = 0;
                 this.player.nextDirection = 0;
-                
+
+                // Reset lives to 3
+                this.lives = 3;
+
                 // Reset ghosts
                 this.ghosts[0] = { x: 9, y: 9, color: '#ff0000', direction: 0, mode: 'chase' };
                 this.ghosts[1] = { x: 8, y: 9, color: '#ffb8ff', direction: 2, mode: 'chase' };
                 this.ghosts[2] = { x: 10, y: 9, color: '#00ffff', direction: 2, mode: 'chase' };
                 this.ghosts[3] = { x: 9, y: 10, color: '#ffb852', direction: 1, mode: 'chase' };
-                
+
                 this.vulnerableTime = 0;
                 this.levelScore = 0;
                 this.countPellets();
+                this.updateSpeedForLevel();
+            }
+
+            updateSpeedForLevel() {
+                // Progressive speed system: starts slow, gets faster each level
+                // Level 1: 12 frames (very slow)
+                // Level 2: 10 frames (slow)
+                // Level 3: 8 frames (normal)
+                // Level 4: 7 frames (fast)
+                // Level 5+: 6 frames (very fast)
+                const speedMap = {
+                    1: 12,  // Very slow start
+                    2: 10,  // Slow
+                    3: 8,   // Normal
+                    4: 7,   // Fast
+                    5: 6,   // Very fast
+                };
+
+                // For levels 6+, continue getting slightly faster but cap at 5 frames
+                if (this.level >= 6) {
+                    this.moveSpeed = Math.max(5, 6 - Math.floor((this.level - 5) / 2));
+                } else {
+                    this.moveSpeed = speedMap[this.level] || 12;
+                }
             }
 
             countPellets() {
@@ -9074,52 +9593,76 @@
 
             update() {
                 this.frameCounter++;
-                
+
+                // Handle death pause - freeze game for a few seconds after losing a life
+                if (this.deathPause) {
+                    this.deathPauseTimer--;
+                    if (this.deathPauseTimer <= 0) {
+                        this.deathPause = false;
+                        this.resetPositions();
+                    }
+                    return; // Don't update game logic during death pause
+                }
+
+                // Check collision before any movement (critical for preventing missed collisions)
+                this.checkGhostCollision();
+
                 // Only move every moveSpeed frames
                 if (this.frameCounter % this.moveSpeed === 0) {
+                    // Store current positions for path crossing detection
+                    const playerOldPos = { x: this.player.x, y: this.player.y };
+                    const ghostOldPositions = this.ghosts.map(ghost => ({ x: ghost.x, y: ghost.y }));
+
                     // Update player direction if possible
                     const directions = [
                         { x: 1, y: 0 },   // right
-                        { x: 0, y: 1 },   // down  
+                        { x: 0, y: 1 },   // down
                         { x: -1, y: 0 },  // left
                         { x: 0, y: -1 }   // up
                     ];
-                    
+
                     const nextDir = directions[this.player.nextDirection];
                     const nextX = this.player.x + nextDir.x;
                     const nextY = this.player.y + nextDir.y;
-                    
+
                     // Check if next direction is valid
                     if (this.isValidMove(nextX, nextY)) {
                         this.player.direction = this.player.nextDirection;
                     }
-                    
+
                     // Move player
                     const currentDir = directions[this.player.direction];
                     const newX = this.player.x + currentDir.x;
                     const newY = this.player.y + currentDir.y;
-                    
+
                     if (this.isValidMove(newX, newY)) {
                         this.player.x = newX;
                         this.player.y = newY;
                     }
-                    
+
                     // Handle screen wrapping
                     if (this.player.x < 0) this.player.x = this.cols - 1;
                     if (this.player.x >= this.cols) this.player.x = 0;
-                    
+
                     // Update ghosts (also slower)
                     this.updateGhosts();
+
+                    // Check for path crossing collisions (position swapping)
+                    this.checkPathCrossingCollision(playerOldPos, ghostOldPositions);
+
+                    // Check collision after movement
+                    this.checkGhostCollision();
                 }
-                
+
                 this.player.animFrame = (this.player.animFrame + 1) % 20;
-                
-                // Check pellet collection
+
+                // Check collisions every frame for maximum detection
                 this.checkPelletCollision();
-                
-                // Check ghost collision
                 this.checkGhostCollision();
-                
+
+                // Update particles
+                this.updateParticles();
+
                 // Update vulnerable time
                 if (this.vulnerableTime > 0) {
                     this.vulnerableTime--;
@@ -9131,12 +9674,12 @@
                         });
                     }
                 }
-                
+
                 // Check win condition
                 if (this.pellets.length === 0 && this.powerPellets.length === 0) {
                     this.levelComplete();
                 }
-                
+
                 this.updateUI();
             }
 
@@ -9156,9 +9699,13 @@
                         this.maze[pellet.y][pellet.x] = 0;
                         this.score += 10;
                         this.levelScore += 10;
+
+                        // Create particle effect for pellet eating
+                        this.createPelletEatParticles(pellet.x, pellet.y);
+                        this.createScoreParticle(pellet.x, pellet.y, 10);
                     }
                 }
-                
+
                 // Check power pellets
                 for (let i = this.powerPellets.length - 1; i >= 0; i--) {
                     const powerPellet = this.powerPellets[i];
@@ -9168,6 +9715,11 @@
                         this.score += 50;
                         this.levelScore += 50;
                         this.vulnerableTime = 300; // 5 seconds at 60fps
+
+                        // Create enhanced particle effect for power pellet
+                        this.createPowerPelletParticles(powerPellet.x, powerPellet.y);
+                        this.createScoreParticle(powerPellet.x, powerPellet.y, 50);
+
                         this.ghosts.forEach(ghost => {
                             if (ghost.mode !== 'eaten') {
                                 ghost.mode = 'vulnerable';
@@ -9216,7 +9768,14 @@
 
             checkGhostCollision() {
                 this.ghosts.forEach((ghost, index) => {
-                    if (Math.abs(ghost.x - this.player.x) < 0.8 && Math.abs(ghost.y - this.player.y) < 0.8) {
+                    // Enhanced collision detection - exact position match for grid-based game
+                    const samePosition = (ghost.x === this.player.x && ghost.y === this.player.y);
+
+                    // Also check if they're adjacent (for better collision detection during movement)
+                    const distance = Math.abs(ghost.x - this.player.x) + Math.abs(ghost.y - this.player.y);
+                    const closeEnough = distance <= 0.5; // Very close tolerance
+
+                    if (samePosition || closeEnough) {
                         if (ghost.mode === 'vulnerable') {
                             // Eat ghost
                             this.score += 200;
@@ -9224,130 +9783,462 @@
                             ghost.mode = 'eaten';
                             ghost.x = 9;
                             ghost.y = 9;
+
+                            // Create particle effect for eating ghost
+                            this.createScoreParticle(ghost.x, ghost.y, 200);
+
                             setTimeout(() => {
                                 ghost.mode = 'chase';
                             }, 3000);
                         } else if (ghost.mode !== 'eaten') {
-                            // Player dies
+                            // Player dies - trigger death pause
                             this.lives--;
+                            this.updateUI();
+
                             if (this.lives <= 0) {
                                 this.gameOver();
                             } else {
-                                // Reset positions
-                                this.player.x = 9;
-                                this.player.y = 15;
-                                this.ghosts.forEach((g, i) => {
-                                    g.x = 9 + (i % 2 === 0 ? 0 : (i === 1 ? -1 : 1));
-                                    g.y = 9 + (i > 1 ? 1 : 0);
-                                });
+                                // Trigger death pause for 3 seconds (180 frames at 60fps)
+                                this.deathPause = true;
+                                this.deathPauseTimer = 180;
                             }
                         }
                     }
                 });
             }
 
+            checkPathCrossingCollision(playerOldPos, ghostOldPositions) {
+                // Detect position swapping and path crossing collisions
+                this.ghosts.forEach((ghost, index) => {
+                    const ghostOldPos = ghostOldPositions[index];
+
+                    // Check if player and ghost swapped positions (critical bug fix)
+                    const positionSwapped = (
+                        this.player.x === ghostOldPos.x &&
+                        this.player.y === ghostOldPos.y &&
+                        ghost.x === playerOldPos.x &&
+                        ghost.y === playerOldPos.y
+                    );
+
+                    // Check if player moved to ghost's old position (crossing paths)
+                    const playerMovedToGhostOldPos = (
+                        this.player.x === ghostOldPos.x &&
+                        this.player.y === ghostOldPos.y
+                    );
+
+                    // Check if ghost moved to player's old position (crossing paths)
+                    const ghostMovedToPlayerOldPos = (
+                        ghost.x === playerOldPos.x &&
+                        ghost.y === playerOldPos.y
+                    );
+
+                    // Trigger collision if any path crossing detected
+                    if (positionSwapped || playerMovedToGhostOldPos || ghostMovedToPlayerOldPos) {
+                        if (ghost.mode === 'vulnerable') {
+                            // Eat ghost
+                            this.score += 200;
+                            this.levelScore += 200;
+                            ghost.mode = 'eaten';
+                            ghost.x = 9;
+                            ghost.y = 9;
+
+                            // Create particle effect for eating ghost
+                            this.createScoreParticle(ghost.x, ghost.y, 200);
+
+                            setTimeout(() => {
+                                ghost.mode = 'chase';
+                            }, 3000);
+                        } else if (ghost.mode !== 'eaten') {
+                            // Player dies - collision detected during movement
+                            this.lives--;
+                            this.updateUI();
+
+                            if (this.lives <= 0) {
+                                this.gameOver();
+                            } else {
+                                // Trigger death pause for 3 seconds (180 frames at 60fps)
+                                this.deathPause = true;
+                                this.deathPauseTimer = 180;
+                            }
+                        }
+                    }
+                });
+            }
+
+            resetPositions() {
+                // Reset player and ghost positions
+                this.player.x = 9;
+                this.player.y = 15;
+                this.player.direction = 0;
+                this.player.nextDirection = 0;
+
+                // Reset ghost positions
+                this.ghosts.forEach((ghost, i) => {
+                    ghost.x = 9 + (i % 2 === 0 ? 0 : (i === 1 ? -1 : 1));
+                    ghost.y = 9 + (i > 1 ? 1 : 0);
+                    ghost.mode = 'chase';
+                    ghost.direction = Math.floor(Math.random() * 4);
+                });
+
+                // Brief pause before gameplay resumes
+                this.moveSpeed = 20; // Very slow for 1 second
+                setTimeout(() => {
+                    this.moveSpeed = 8; // Resume normal speed
+                }, 1000);
+            }
+
             draw() {
-                // Clear canvas
-                this.ctx.fillStyle = '#000000';
+                // Enhanced background with gradient
+                const bgGradient = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height);
+                bgGradient.addColorStop(0, '#000011');
+                bgGradient.addColorStop(1, '#000000');
+                this.ctx.fillStyle = bgGradient;
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                // Draw maze
-                this.ctx.fillStyle = '#0000ff';
+
+                // Draw enhanced maze with 3D effects
+                this.drawEnhancedMaze();
+
+                // Draw enhanced pellets with glow effects
+                this.drawEnhancedPellets();
+
+                // Draw enhanced power pellets
+                this.drawEnhancedPowerPellets();
+
+                // Draw player (Pacman)
+                this.drawPacman();
+
+                // Draw ghosts
+                this.drawGhosts();
+
+                // Draw particles
+                this.drawParticles();
+
+                // Draw death pause message
+                if (this.deathPause) {
+                    this.ctx.save();
+                    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                    this.ctx.fillStyle = '#ffffff';
+                    this.ctx.font = 'bold 36px Arial';
+                    this.ctx.textAlign = 'center';
+                    this.ctx.shadowColor = '#ff0000';
+                    this.ctx.shadowBlur = 10;
+
+                    const message = `LIFE LOST! ${Math.ceil(this.deathPauseTimer / 60)} seconds...`;
+                    this.ctx.fillText(message, this.canvas.width / 2, this.canvas.height / 2);
+
+                    this.ctx.restore();
+                }
+            }
+
+            // Particle system methods
+            createPelletEatParticles(x, y) {
+                for (let i = 0; i < 8; i++) {
+                    this.particles.push({
+                        x: x * this.gridSize + this.gridSize / 2,
+                        y: y * this.gridSize + this.gridSize / 2,
+                        vx: (Math.random() - 0.5) * 4,
+                        vy: (Math.random() - 0.5) * 4,
+                        life: 30,
+                        maxLife: 30,
+                        color: '#ffff00',
+                        size: Math.random() * 3 + 1
+                    });
+                }
+            }
+
+            createPowerPelletParticles(x, y) {
+                for (let i = 0; i < 15; i++) {
+                    this.particles.push({
+                        x: x * this.gridSize + this.gridSize / 2,
+                        y: y * this.gridSize + this.gridSize / 2,
+                        vx: (Math.random() - 0.5) * 6,
+                        vy: (Math.random() - 0.5) * 6,
+                        life: 60,
+                        maxLife: 60,
+                        color: Math.random() > 0.5 ? '#ffffff' : '#ffff00',
+                        size: Math.random() * 4 + 2
+                    });
+                }
+            }
+
+            createScoreParticle(x, y, points) {
+                this.particles.push({
+                    x: x * this.gridSize + this.gridSize / 2,
+                    y: y * this.gridSize + this.gridSize / 2,
+                    vx: 0,
+                    vy: -2,
+                    life: 90,
+                    maxLife: 90,
+                    color: '#ffffff',
+                    size: 1,
+                    text: points.toString(),
+                    isText: true
+                });
+            }
+
+            updateParticles() {
+                for (let i = this.particles.length - 1; i >= 0; i--) {
+                    const particle = this.particles[i];
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    particle.life--;
+
+                    if (particle.life <= 0) {
+                        this.particles.splice(i, 1);
+                    }
+                }
+            }
+
+            drawParticles() {
+                this.particles.forEach(particle => {
+                    this.ctx.save();
+
+                    const alpha = particle.life / particle.maxLife;
+
+                    if (particle.isText) {
+                        this.ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                        this.ctx.font = 'bold 12px Arial';
+                        this.ctx.textAlign = 'center';
+                        this.ctx.fillText(particle.text, particle.x, particle.y);
+                    } else {
+                        this.ctx.globalAlpha = alpha;
+                        this.ctx.shadowColor = particle.color;
+                        this.ctx.shadowBlur = 5;
+                        this.ctx.fillStyle = particle.color;
+                        this.ctx.beginPath();
+                        this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                        this.ctx.fill();
+                    }
+
+                    this.ctx.restore();
+                });
+            }
+
+            drawEnhancedMaze() {
                 for (let y = 0; y < this.rows; y++) {
                     for (let x = 0; x < this.cols; x++) {
                         if (this.maze[y][x] === 1) {
+                            this.ctx.save();
+
+                            // Create 3D wall effect with gradients
+                            const wallGradient = this.ctx.createLinearGradient(
+                                x * this.gridSize, y * this.gridSize,
+                                (x + 1) * this.gridSize, (y + 1) * this.gridSize
+                            );
+                            wallGradient.addColorStop(0, '#4444ff');
+                            wallGradient.addColorStop(0.5, '#0000ff');
+                            wallGradient.addColorStop(1, '#000088');
+
+                            // Add shadow for depth
+                            this.ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                            this.ctx.shadowBlur = 2;
+                            this.ctx.shadowOffsetX = 1;
+                            this.ctx.shadowOffsetY = 1;
+
+                            this.ctx.fillStyle = wallGradient;
                             this.ctx.fillRect(x * this.gridSize, y * this.gridSize, this.gridSize, this.gridSize);
+
+                            // Add highlight edge for 3D effect
+                            this.ctx.shadowColor = 'transparent';
+                            this.ctx.fillStyle = '#6666ff';
+                            this.ctx.fillRect(x * this.gridSize, y * this.gridSize, this.gridSize, 2);
+                            this.ctx.fillRect(x * this.gridSize, y * this.gridSize, 2, this.gridSize);
+
+                            this.ctx.restore();
                         }
                     }
                 }
-                
-                // Draw pellets
-                this.ctx.fillStyle = '#ffff00';
+            }
+
+            drawEnhancedPellets() {
                 this.pellets.forEach(pellet => {
+                    this.ctx.save();
+
+                    const centerX = pellet.x * this.gridSize + this.gridSize / 2;
+                    const centerY = pellet.y * this.gridSize + this.gridSize / 2;
+
+                    // Glowing effect
+                    this.ctx.shadowColor = '#ffff00';
+                    this.ctx.shadowBlur = 8;
+
+                    // Create gradient for pellet
+                    const pelletGradient = this.ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 4);
+                    pelletGradient.addColorStop(0, '#ffffaa');
+                    pelletGradient.addColorStop(0.7, '#ffff00');
+                    pelletGradient.addColorStop(1, '#cccc00');
+
+                    this.ctx.fillStyle = pelletGradient;
                     this.ctx.beginPath();
-                    this.ctx.arc(
-                        pellet.x * this.gridSize + this.gridSize / 2,
-                        pellet.y * this.gridSize + this.gridSize / 2,
-                        2, 0, Math.PI * 2
-                    );
+                    this.ctx.arc(centerX, centerY, 3, 0, Math.PI * 2);
                     this.ctx.fill();
+
+                    this.ctx.restore();
                 });
-                
-                // Draw power pellets
-                this.ctx.fillStyle = '#ffff00';
+            }
+
+            drawEnhancedPowerPellets() {
+                if (!this.imagesLoaded) return;
+
                 this.powerPellets.forEach(powerPellet => {
-                    if (Math.floor(Date.now() / 200) % 2) { // Blinking effect
-                        this.ctx.beginPath();
-                        this.ctx.arc(
-                            powerPellet.x * this.gridSize + this.gridSize / 2,
-                            powerPellet.y * this.gridSize + this.gridSize / 2,
-                            6, 0, Math.PI * 2
-                        );
-                        this.ctx.fill();
+                    const centerX = powerPellet.x * this.gridSize + this.gridSize / 2;
+                    const centerY = powerPellet.y * this.gridSize + this.gridSize / 2;
+
+                    this.ctx.save();
+
+                    // Move to center for transformations
+                    this.ctx.translate(centerX, centerY);
+
+                    // Animated pulsing effect
+                    const pulseScale = 1 + Math.sin(Date.now() / 150) * 0.3;
+                    const size = (this.gridSize - 4) * pulseScale;
+
+                    // Strong glow effect around the sprite
+                    this.ctx.shadowColor = '#ff6666';
+                    this.ctx.shadowBlur = 15;
+
+                    // Draw the angry emoji sprite
+                    this.ctx.drawImage(
+                        this.images['angry-emoji.png'],
+                        -size/2,
+                        -size/2,
+                        size,
+                        size
+                    );
+
+                    // Add sparkle effect around the sprite
+                    if (Math.random() < 0.3) {
+                        this.ctx.shadowColor = 'transparent';
+                        this.ctx.fillStyle = '#ffffff';
+                        this.ctx.fillRect(Math.random() * 20 - 10, Math.random() * 20 - 10, 2, 2);
                     }
+
+                    this.ctx.restore();
                 });
-                
-                // Draw player (Pacman)
-                this.drawPacman();
-                
-                // Draw ghosts
-                this.drawGhosts();
             }
 
             drawPacman() {
+                if (!this.imagesLoaded) return;
+
                 const centerX = this.player.x * this.gridSize + this.gridSize / 2;
                 const centerY = this.player.y * this.gridSize + this.gridSize / 2;
-                const radius = this.gridSize / 2 - 2;
-                
-                this.ctx.fillStyle = '#ffff00';
-                this.ctx.beginPath();
-                
-                // Mouth animation
-                const mouthAngle = (this.player.animFrame < 10) ? Math.PI / 4 : 0;
-                const startAngle = mouthAngle + (this.player.direction * Math.PI / 2);
-                const endAngle = startAngle + (2 * Math.PI - 2 * mouthAngle);
-                
-                this.ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-                this.ctx.lineTo(centerX, centerY);
-                this.ctx.fill();
+                const size = this.gridSize - 4;
+
+                this.ctx.save();
+
+                // Move to center for transformations
+                this.ctx.translate(centerX, centerY);
+
+                // Apply directional transformations (cat starts facing down)
+                switch(this.player.direction) {
+                    case 0: // Right - rotate 90° counter-clockwise from default down
+                        this.ctx.rotate(-Math.PI / 2);
+                        break;
+                    case 1: // Down - default (no transformation)
+                        break;
+                    case 2: // Left - rotate 90° counter-clockwise then flip vertically
+                        this.ctx.rotate(-Math.PI / 2);
+                        this.ctx.scale(1, -1);
+                        break;
+                    case 3: // Up - rotate 180° from default down
+                        this.ctx.rotate(Math.PI);
+                        break;
+                }
+
+                // Add subtle shadow effect
+                this.ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+                this.ctx.shadowBlur = 4;
+                this.ctx.shadowOffsetX = 2;
+                this.ctx.shadowOffsetY = 2;
+
+                // Draw the cat sprite
+                this.ctx.drawImage(
+                    this.images['cat.png'],
+                    -size/2,
+                    -size/2,
+                    size,
+                    size
+                );
+
+                this.ctx.restore();
             }
 
             drawGhosts() {
-                this.ghosts.forEach(ghost => {
+                if (!this.imagesLoaded) return;
+
+                this.ghosts.forEach((ghost, index) => {
                     const centerX = ghost.x * this.gridSize + this.gridSize / 2;
                     const centerY = ghost.y * this.gridSize + this.gridSize / 2;
-                    const radius = this.gridSize / 2 - 2;
-                    
-                    // Ghost color
+                    const size = this.gridSize - 4;
+
+                    this.ctx.save();
+
+                    // Move to center for transformations
+                    this.ctx.translate(centerX, centerY);
+
+                    // Apply directional transformations
+                    switch(ghost.direction) {
+                        case 0: // Right - mirror vertically (scaleY(-1))
+                            this.ctx.scale(1, -1);
+                            break;
+                        case 1: // Down - rotate 90° counterclockwise
+                            this.ctx.rotate(-Math.PI / 2);
+                            break;
+                        case 2: // Left - default (no transformation)
+                            break;
+                        case 3: // Up - rotate 90° clockwise
+                            this.ctx.rotate(Math.PI / 2);
+                            break;
+                    }
+
+                    // Handle vulnerable and eaten states with visual effects
                     if (ghost.mode === 'vulnerable') {
-                        this.ctx.fillStyle = Math.floor(this.vulnerableTime / 30) % 2 ? '#0000ff' : '#ffffff';
+                        // SUPER OBVIOUS blue flashing effect
+                        const isFlashing = Math.floor(this.vulnerableTime / 6) % 2 === 0;
+
+                        if (isFlashing) {
+                            // Intense blue phase - completely blue sprite
+                            this.ctx.globalCompositeOperation = 'source-over';
+                            this.ctx.fillStyle = '#0044ff';
+                            this.ctx.shadowColor = '#0088ff';
+                            this.ctx.shadowBlur = 20;
+                            this.ctx.fillRect(-size/2-5, -size/2-5, size+10, size+10);
+
+                            // Draw sprite with blue tint
+                            this.ctx.globalCompositeOperation = 'multiply';
+                            this.ctx.fillStyle = '#3366ff';
+                            this.ctx.fillRect(-size/2, -size/2, size, size);
+                            this.ctx.globalCompositeOperation = 'source-over';
+                        } else {
+                            // Bright white phase for maximum contrast
+                            this.ctx.globalCompositeOperation = 'source-over';
+                            this.ctx.fillStyle = '#ffffff';
+                            this.ctx.shadowColor = '#ffffff';
+                            this.ctx.shadowBlur = 15;
+                            this.ctx.fillRect(-size/2-3, -size/2-3, size+6, size+6);
+
+                            // Brighten the sprite significantly
+                            this.ctx.globalCompositeOperation = 'screen';
+                            this.ctx.fillStyle = '#cccccc';
+                            this.ctx.fillRect(-size/2, -size/2, size, size);
+                            this.ctx.globalCompositeOperation = 'source-over';
+                        }
                     } else if (ghost.mode === 'eaten') {
-                        this.ctx.fillStyle = '#444444';
-                    } else {
-                        this.ctx.fillStyle = ghost.color;
+                        this.ctx.globalAlpha = 0.5;
+                        this.ctx.filter = 'grayscale(100%)';
                     }
-                    
-                    // Ghost body (semi-circle with wavy bottom)
-                    this.ctx.beginPath();
-                    this.ctx.arc(centerX, centerY, radius, Math.PI, 0);
-                    
-                    // Wavy bottom
-                    for (let i = 0; i < 3; i++) {
-                        this.ctx.lineTo(centerX + radius - (i * radius / 1.5), centerY + (i % 2 === 0 ? radius / 2 : 0));
-                    }
-                    this.ctx.lineTo(centerX - radius, centerY);
-                    this.ctx.fill();
-                    
-                    // Eyes
-                    if (ghost.mode !== 'eaten') {
-                        this.ctx.fillStyle = '#ffffff';
-                        this.ctx.fillRect(centerX - radius/2, centerY - radius/2, radius/3, radius/3);
-                        this.ctx.fillRect(centerX + radius/6, centerY - radius/2, radius/3, radius/3);
-                        
-                        this.ctx.fillStyle = '#000000';
-                        this.ctx.fillRect(centerX - radius/3, centerY - radius/3, radius/6, radius/6);
-                        this.ctx.fillRect(centerX + radius/4, centerY - radius/3, radius/6, radius/6);
-                    }
+
+                    // Draw the gun emoji sprite
+                    this.ctx.drawImage(
+                        this.images['gun-emoji.png'],
+                        -size/2,
+                        -size/2,
+                        size,
+                        size
+                    );
+
+                    this.ctx.restore();
                 });
             }
 
@@ -9401,6 +10292,46 @@
 
             showLevelComplete() {
                 document.getElementById('levelCompleteScore').textContent = this.levelScore;
+
+                // Calculate and display next level speed info
+                const nextLevel = this.level + 1;
+                const currentMoveSpeed = this.moveSpeed;
+
+                // Calculate what the next speed will be
+                const nextSpeedMap = {
+                    2: 10, 3: 8, 4: 7, 5: 6
+                };
+                const nextMoveSpeed = nextLevel >= 6 ?
+                    Math.max(5, 6 - Math.floor((nextLevel - 5) / 2)) :
+                    (nextSpeedMap[nextLevel] || 5);
+
+                // Add speed notification if it will change
+                const levelCompleteDiv = document.getElementById('pacmanLevelComplete');
+                let speedNotification = levelCompleteDiv.querySelector('.speed-notification');
+
+                if (!speedNotification) {
+                    speedNotification = document.createElement('div');
+                    speedNotification.className = 'speed-notification';
+                    speedNotification.style.cssText = `
+                        margin-top: 15px;
+                        padding: 10px;
+                        background: rgba(255, 255, 0, 0.2);
+                        border: 2px solid #ffff00;
+                        border-radius: 8px;
+                        color: #ffff00;
+                        font-weight: bold;
+                        text-align: center;
+                    `;
+                    levelCompleteDiv.appendChild(speedNotification);
+                }
+
+                if (nextMoveSpeed < currentMoveSpeed) {
+                    speedNotification.textContent = `⚡ SPEED INCREASE! Next level will be faster! ⚡`;
+                    speedNotification.style.display = 'block';
+                } else {
+                    speedNotification.style.display = 'none';
+                }
+
                 document.getElementById('pacmanLevelComplete').style.display = 'block';
             }
 
