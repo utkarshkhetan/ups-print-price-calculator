@@ -1,15 +1,17 @@
 // Service Worker for Print Price Calculator PWA
-const CACHE_NAME = 'print-calculator-v1';
+const CACHE_NAME = 'print-calculator-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-152.png',
-  '/icon-167.png',
-  '/icon-180.png',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/ups-logo_white_01.png'
+  // Use relative URLs so the PWA works when hosted under a GitHub Pages sub-path.
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-152.png',
+  './icon-167.png',
+  './icon-180.png',
+  './icon-192.png',
+  './icon-512.png',
+  './ups-logo_white_01.png',
+  './pricing-config.js'
 ];
 
 // Install event - cache resources

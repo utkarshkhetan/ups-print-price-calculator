@@ -1,199 +1,213 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Project instructions for Claude Code when working with this repository.
 
 ## Project Overview
 
-This is a single-page print price calculator web application that helps customers calculate printing costs for different paper types, sizes, and quantities. The application is built as a standalone HTML file with embedded CSS and JavaScript.
+Single-page print price calculator web app with 18 service calculators, shopping cart system, price logging, PWA support, and three hidden arcade games. Built as standalone HTML file with vanilla JavaScript, no dependencies or build process.
+
+**File**: `index.html` (19,333 lines: HTML + embedded CSS + JavaScript)
+
+**Tech**: Vanilla JS (ES6+), CSS3, HTML5 Canvas, Service Worker, LocalStorage
 
 ## Architecture
 
-The application consists of:
-- Single HTML file (`index.html`) containing all code and styles
-- Two main calculation modes:
-  - **Standard printing**: Traditional paper sizes (8.5x11, 8.5x14, 11x17, 12x18) with various paper types
-  - **Large format printing**: Custom dimensions with square footage pricing
-- Static UPS logo asset (`ups-logo_white_01.png`)
+**18 Service Pages** (sidebar navigation):
+1. Home (`homepage`) - Service dashboard
+2. Standard Prints (`standardCalculator`) - Paper printing
+3. Large Format (`largeFormatCalculator`) - Custom dimensions, sq ft pricing
+4. Business Cards (`businessCardsCalculator`) - **⚠️ MISSING CART INTEGRATION**
+5. Stickers (`stickerSheetsCalculator`) - 7 size variants
+6. Stamps (`stampsCalculator`) - USPS postage
+7. Mailboxes (`mailboxesCalculator`) - Monthly rental tiers
+8. Boxes & Packing (`boxesPackingCalculator`) - Interactive tables, 32+ box types
+9. Faxing (`faxingCalculator`) - Local/long distance/international
+10. Shredding (`shreddingCalculator`) - Self-service/white-glove
+11. Scanning (`scanningCalculator`) - ADF/Manual mode toggle
+12. Laminations (`laminationsCalculator`) - 4 sizes × 3 thicknesses
+13. Passport Photos (`passportPhotosCalculator`) - US/international
+14. Coil Binding (`coilBindingCalculator`) - 6 sizes
+15. Big Heads (`bigHeadsCalculator`) - Custom cutouts
+16. 3D Prints (`3dPrintsCalculator`) - PLA filament by gram
+17. Graphic Design (`graphicDesignCalculator`) - $75/hour billing
+18. Industry Norms (`industryNorms`) - Paper weight reference
 
-## Application Pages and Navigation
+**Hidden Features**: Shopping cart (header icon), 3 arcade games (Galaga, Pacman, Asteroids via easter egg)
 
-The application consists of 11 main service pages accessible via sidebar navigation:
+## Critical Pricing Logic
 
-1. **Home** (`homepage`) - Service selection dashboard with button grid
-2. **Standard Prints** (`standardCalculator`) - Traditional paper printing calculator
-3. **Large Format Prints** (`largeFormatCalculator`) - Custom dimension printing
-4. **Business Cards** (`businessCardsCalculator`) - Business card pricing with options
-5. **Stickers** (`stickerSheetsCalculator`) - Sticker sheet calculator with size variants
-6. **Stamps** (`stampsCalculator`) - Individual stamp calculator for postage
-7. **Faxing** (`faxingCalculator`) - Fax service pricing calculator
-8. **Shredding** (`shreddingCalculator`) - Document destruction services
-9. **Scanning** (`scanningCalculator`) - Document scanning services
-10. **Graphic Design** (`graphicDesignCalculator`) - Design time calculator
-11. **Industry Norms** (`industryNorms`) - Paper recommendations reference
+### Special Text Paper Pricing (8.5x11 ONLY)
+**20lb Text:**
+- 1 sheet: $1.00 flat rate
+- 2-4 sheets: $2.00 for first 4, then incremental
+- 5+ sheets: Color $0.59/page, B&W $0.295/page
 
-## Key Components
+**28lb Text:**
+- 1 sheet: $1.00 flat rate
+- 2-3 sheets: $2.00 for first 3, then incremental
+- 4+ sheets: Color $0.64/page, B&W $0.32/page
 
-### User Interface Structure
-- **Standard Calculator Sections**: `paperSelection`, `colorSection`, `sizeSection`, `quantitySection`, `resultsSection`
-- **Large Format Sections**: `lfPaperSelection`, `lfDimensionSection`, `lfResultsSection`
-- **Navigation**: Sidebar navigation with 11 service buttons, collapsible mobile menu
-- **Header**: Fixed header with dynamic titles and UPS logo positioning
+### Bulk Discounts (Standard & Large Format)
+- 50-99: 10% off
+- 100-249: 20% off
+- 250-499: 30% off
+- 500-999: 40% off
+- 1000+: 50% off
 
-### Pricing Structure
-- **paperTypes**: Base prices for different paper weights and finishes (20lb Text through Kromekote Photo Paper)
-- **sizeMultipliers**: Price multipliers based on color type (B&W vs Color) and paper size
-- **largeFormatPapers**: Per-square-foot pricing for large format materials
+### Service Fees
+- Standard prints: $2.00 if order < $15
+- Large format: $5.00 if order < $30
 
-### Core Functions
-- `selectPaper()`, `selectColor()`, `selectSize()`: Standard printing workflow
-- `selectLargeFormatPaper()`, `calculateLargeFormatPrice()`: Large format workflow
-- `calculatePrice()`: Main pricing calculation with bulk discounts and service fees
-- Navigation functions: `showSection()`, `goBackTo*()`, `resetCalculator()`, `toggleSection()`
+### Scanning Modes (Standard)
+**ADF Mode:**
+- 1-6 pages: $3.00 flat
+- 7-10 pages: $3.00 + $0.50/page (after 6)
+- 11+ pages: $3.00 + $2.00 (pages 7-10) + $0.25/page (after 10)
 
-### Business Logic
-- **Service fees**: $2.00 for orders under $15 (standard), $5.00 for orders under $30 (large format)
-- **Bulk discounts**: 10% for 50+ sheets, 20% for 100+ sheets, 30% for 250+ sheets, 40% for 500+ sheets, 50% for 1000+ sheets
-- **Special pricing for text papers** (8.5x11 only):
-  - 20lb Text: $1.00 for single sheet, $2.00 for first 4 sheets + incremental rates (color: $0.59, B&W: $0.24)
-  - 28lb Text: $1.00 for single sheet, $2.00 for first 3 sheets + incremental rates (color: $0.64, B&W: $0.32)
-- **Large format options**: Optional foam core backing (+$2.00/sq ft), supports both inches and feet units
+**Manual Mode:**
+- 1 page: $2.00
+- 2-49 pages: $2.00 + $1.00/page (after 1)
+- 50+ pages: $2.00 + $48.00 (pages 2-49) + $0.50/page (after 49)
 
-## Development
+Use `toggleScanMode(mode)` to switch, `calculateStandardScans()` uses `currentScanMode` variable.
 
-This is a static site with no build process or dependencies. To work with it:
-- Open `index.html` directly in a browser
-- All modifications are made to the single HTML file
-- No package management or build tools required
+### Other Pricing Notes
+- **Large Format**: Per sq ft pricing ($3-$6.50), optional foam core +$2/sq ft
+- **Business Cards**: Options add percentages (Glossy +10%, Color +20%, Double-sided +30%, Full bleed +15%)
+- **Stickers**: Pricing by finish type and quantity tiers, `stickerData` object holds stickers-per-sheet counts
+- **Stamps**: Two envelope sizes (small/large), pricing by oz weight (1-13 oz), Forever stamps $0.78
+- **Mailboxes**: 2 sizes × 4 tiers, $25 setup fee, $5/holder, $5/key
+- **Faxing**: Bulk pricing after page 10
+- **Shredding**: Tiered by weight (1-25, 26-100, 100+), two service types
+- **Laminations**: Matrix pricing (4 sizes × 3 thicknesses)
 
-The application uses vanilla JavaScript with no external dependencies or frameworks.
+## Key Components & Patterns
 
-## Additional Calculator Services
+### UI Structure
+- **Standard Calculator Flow**: Paper → Color → Size → Quantity → Results
+- **Large Format Flow**: Paper → Dimensions (inches/feet) → Results
+- **Navigation**: `toggleSection(sectionId)` switches between all pages, `updateActiveNavItem()` highlights active
+- **Selection Changes**: Dropdown editors allow changing paper/color/size without reset via `changeSelection(type)`
+- **Result Bubbles**: Green bubbles for final prices, animated entrance
 
-### Individual Stamps Calculator
-- **Location**: Stamps section in main navigation
-- **Purpose**: Calculate postage requirements and stamp quantities for mailing
-- **Features**:
-  - Weight input for mail items (in ounces)
-  - Two envelope size categories: Small (up to 6.125" x 11.5") and Large (over those dimensions)
-  - Dynamic pricing charts showing USPS postage rates
-  - Four result bubbles displaying:
-    1. Number of stamps needed
-    2. Customer price (stamp cost)
-    3. Postage amount required (USPS rate)
-    4. Postage amount fulfilled (stamp value: stamps × $0.78)
-- **Pricing**: Forever stamps valued at $0.78 each
-- **UI Pattern**: Input field with real-time calculation and bubble display layout
+### Function Naming Patterns
+- `calculate[Service]Price()` - Main calculation for each service
+- `reset[Service]Calculator()` - Reset specific calculator
+- `add[Service]ToCart()` - Add item to shopping cart
+- `select[Option](value)` - Selection handlers
+- `goBackTo[Step]()` - Navigation within calculator flows
 
-### Document Shredding Services
-- **Location**: Shredding section in main navigation
-- **Purpose**: Calculate pricing for document destruction services
-- **Service Types**:
-  - **Self-Service Shredding**: Customer brings documents to facility
-    - 1-25 lbs: $0.99/lb
-    - 26-100 lbs: $0.85/lb
-    - 100+ lbs: $0.75/lb
-  - **White-Glove Service**: Full-service document pickup and destruction
-    - 1-25 lbs: $1.29/lb
-    - 26-100 lbs: $1.14/lb
-    - 100+ lbs: $0.99/lb
-- **UI Pattern**: Toggle switch, tiered pricing table, weight input calculator
-- **Layout**: Follows spacious graphic design page layout (max-width: 1400px)
-- **Features**: Real-time price calculation with automatic tier detection
+### Critical Functions
+- `calculatePrice()` - Standard prints (handles special text paper logic)
+- `calculateLargeFormatPrice()` - Square footage calculations
+- `resetAllCalculators()` - Global reset (called on navigation)
+- `toggleScanMode(mode)` - Switch between 'adf' and 'manual' scanning
+- `updateStandardScanPricingTable()` - Update table based on scan mode
 
-### Business Cards Calculator
-- **Location**: Business Cards section in main navigation
-- **Purpose**: Calculate pricing for custom business card orders
-- **Paper Types**: 14pt and 16pt cardstock options
-- **Quantities**: 50, 100, 250, 500, 1000 cards
-- **Options & Pricing Modifiers**:
-  - Glossy finish: +10%
-  - Full color printing: +20%
-  - Double-sided printing: +30%
-  - Full bleed design: +15%
-- **Base Prices**: 14pt ($20-$135), 16pt ($25-$165) based on quantity
-- **UI Pattern**: Checkbox options with real-time price calculation
+## Shopping Cart System
 
-### Sticker Sheets Calculator
-- **Location**: Stickers section in main navigation
-- **Purpose**: Calculate pricing for adhesive sticker sheet printing
-- **Size Options**: 7 different sticker formats with varying quantities per sheet:
-  - 1x2.625 matte (30 stickers/sheet)
-  - 1.5x4 gloss (12 stickers/sheet)
-  - 2" circle gloss (20 stickers/sheet)
-  - 2x3 gloss (10 stickers/sheet)
-  - 2x4 gloss (10 stickers/sheet)
-  - 2.5x6 matte (4 stickers/sheet)
-  - 8.5x11 full sheet (1 sticker/sheet)
-- **Tiered Pricing**: Quantity-based pricing (100+: $2-$3, 25+: $3-$4, 10+: $4-$5, 1+: $5-$6)
-- **Features**: Visual sticker size selection with image previews, automatic sheet calculation
-- **Easter Egg**: Secret button sequence unlocks special celebration images
+**Status**: 17 of 18 services implemented. **Business Cards missing** `addBusinessCardToCart()` function and UI button.
 
-### Faxing Calculator
-- **Location**: Faxing section in main navigation  
-- **Purpose**: Calculate costs for fax transmission services
-- **Service Types**:
-  - **Local Fax**: $2.00 first page, $1.00 additional
-  - **Long Distance**: $3.00 first page, $1.50 additional  
-  - **International**: $5.00 first page, $2.50 additional
-- **Volume Discounts**: Pages 11+ charged at half the additional page rate
-- **UI Pattern**: Service type selection, page quantity input, automatic calculation
+**Architecture**:
+- **ShoppingCartManager class** (`cartManager` instance)
+- Session-only (in-memory, no localStorage)
+- Cart state: `shoppingCart = []`, `cartBadgeCount = 0`
+- Item structure: `{ id, calculatorType, description, details, price, addedAt }`
 
-### Scanning Services Calculator
-- **Location**: Scanning section in main navigation
-- **Purpose**: Calculate pricing for document digitization services
-- **Service Types**:
-  - **Standard Document Scanning**: Flat rate and per-page pricing tiers
-    - 1-6 pages: $3.00 flat rate
-    - 7+ pages: $3.00 + $0.50 each additional
-    - 11+ pages: $5.00 (10 pages) + $0.25 each additional
-  - **Large Format Scanning**: Per-page pricing
-    - 1st page: $2.00
-    - 2-49 pages: $2.00 + $1.00 each
-    - 50+ pages: $50.00 (49 pages) + $0.50 each additional
-- **UI Pattern**: Toggle switch between services, tiered pricing display, quantity calculator
+**Key Methods**:
+- `cartManager.addToCart(type, details, price)` - Add item
+- `cartManager.formatItemDescription(type, details)` - Service-specific formatting
+- Each service has `add[Service]ToCart()` function (except Business Cards)
 
-### Graphic Design Services Calculator  
-- **Location**: Graphic Design section in main navigation
-- **Purpose**: Calculate billable hours for professional design services
-- **Pricing**: $75 per hour for all design work
-- **Features**: Time input (hours and minutes), automatic cost calculation
-- **Use Case**: Estimates for logo design, marketing materials, layout work
-- **UI Pattern**: Time input fields, hourly rate display, total calculation
+**Add to Cart Buttons**:
+- Float on top-right of price bubbles
+- Dynamic sizing (40-80px based on bubble height)
+- Only visible when price > $0.00
+- `updateAddToCartButton(buttonId, bubbleElementId, priceText)` manages visibility/sizing
+- `resizeAddToCartButton(buttonId, bubbleElement)` handles dynamic resizing
 
-### Industry Norms Reference
-- **Location**: Industry Norms section in main navigation
-- **Purpose**: Educational reference for paper weight recommendations
-- **Content**: Detailed recommendations for different document types:
-  - **Text Papers**: 20lb (everyday documents), 28lb (professional documents)
-  - **Cover Papers**: 60lb (business cards), 80lb+ (premium materials)
-  - **Photo Papers**: Specialty options for photography and marketing
-- **Format**: Informational cards with paper descriptions and use cases
-- **No Calculator**: Static reference page, no pricing calculations
+**Cart Page**: `shoppingCart` section, accessible via header icon, shows line items with formatted descriptions, subtotal, and actions.
 
-### Technical Implementation Notes
-- **Layout Consistency**: All pages follow either standard calculator or spacious graphic design layout patterns
-- **CSS Patterns**: 
-  - Full-height tables using flexbox (`display: flex; flex-direction: column; height: 100%`)
-  - Responsive grid systems for calculators and content
-  - Toggle button styling for service type selection
-- **JavaScript Functions**: 
-  - `calculateStampRequirements()`: USPS postage calculations with tiered rates
-  - `toggleShreddingMode()`: Service type switching for shredding services
-  - `calculateShreddingPrice()`: Tiered weight-based pricing
-  - `calculateFaxPrice()`: Multi-tier fax pricing with volume discounts
-  - `calculateScanPrice()`: Tiered document scanning calculations
-  - `calculateGraphicDesignTime()`: Hourly billing calculations
-  - `calculateBusinessCardPrice()`: Option-based pricing with modifiers
-  - `calculateStickerPrice()`: Quantity and finish-based sticker pricing
-- **Data Structures**: 
-  - `stampPricing`: USPS postage rates for small/large envelopes by weight
-  - `shreddingPricing`: Tiered pricing for self-service vs white-glove shredding
-  - `faxPrices`: Multi-tier pricing structure for local/long-distance/international
-  - `businessCardPrices`: Quantity-based pricing matrix for different cardstock
-  - `stickerPricing`: Tiered pricing based on quantity and finish type
-  - `stickerData`: Stickers per sheet data for different size options
-- **Special Features**:
-  - **Price Calculation Logger**: Comprehensive tracking system for all calculations
-  - **Secret Code System**: Easter egg functionality in sticker calculator
-  - **Bulk Discount System**: Automatic percentage discounts for large quantities
-  - **Service Fee Logic**: Automatic minimum order fees for small transactions
+## Special Features
+
+### Easter Eggs
+- **Secret Code**: Enter "42069" in sticker quantity → unlocks export button + fireworks
+- **Secret Sequence**: Click sticker buttons in pattern (1.5x4-gloss, 1x2.625-matte, repeat) → unlocks export
+- **Celebration**: `launchFireworks()` creates canvas-based particle animation
+
+### Arcade Games
+Three complete games (Galaga, Pacman, Asteroids) with Canvas rendering, collision detection, localStorage leaderboards, lives systems. Accessible via unlocked export button.
+
+### Price Calculation Logger
+**PriceCalculationLogger class** tracks all calculations:
+- Session-based tracking with unique IDs
+- LocalStorage persistence (1000 record limit)
+- Commits on navigation/page close via event handlers
+- CSV export via unlocked button
+- Privacy-conscious (truncated user agent, no personal data)
+
+### PWA Support
+- Service worker for offline capability
+- `manifest.json` with app metadata
+- Icon assets (152, 167, 180, 192, 512px PNG/SVG)
+- iOS-specific meta tags
+
+### Advanced UI Features
+- **Boxes & Packing**: Interactive tables with clickable cells, multi-selection, sticky headers
+- **Mailboxes**: Smooth column ↔ full-width layout animations
+- **Inline Editors**: Quantity editing with auto-save
+- **Recommendation System**: Industry Norms page suggests papers, one-click selection
+
+## Development Guidelines
+
+### File Structure
+Single file: `index.html` (HTML + `<style>` + `<script>` blocks)
+No build process, no dependencies, open directly in browser.
+
+### Code Organization (within index.html)
+- **HTML**: Header, sidebar (18 nav buttons), main (18 sections), hidden sections (games, cart)
+- **CSS** (~4000 lines): Design system (blue color palette, spacing, shadows), animations, responsive layouts
+- **JavaScript** (~15000 lines): Data structures, calculations, navigation, UI, ShoppingCartManager, PriceCalculationLogger, games, easter eggs
+
+### Best Practices
+- Follow existing naming patterns (`calculate*`, `reset*`, `add*ToCart`, `select*`)
+- Test calculations with edge cases (bulk discounts, service fees, special text paper pricing)
+- Mobile-first responsive design (breakpoints: 768px, 1024px)
+- Document complex business logic in comments
+- Group related functions together
+
+### Common Tasks
+
+**Add New Calculator**:
+1. Add button to sidebar and homepage grid
+2. Create section in main HTML
+3. Implement `calculate[Service]Price()` function
+4. Add `reset[Service]Calculator()` and add to `resetAllCalculators()`
+5. Create `add[Service]ToCart()` function
+6. Add formatter to `ShoppingCartManager.formatItemDescription()`
+7. Update CLAUDE.md
+
+**Modify Pricing**:
+1. Update pricing data structure (e.g., `paperTypes`, `businessCardPrices`)
+2. Verify calculation logic handles edge cases
+3. Test bulk discounts and service fees
+4. Update CLAUDE.md pricing section
+
+**Fix Business Cards Cart Integration** (Outstanding Task):
+1. Implement `addBusinessCardToCart()` function
+2. Add cart button to business cards result bubble
+3. Test with all options (Glossy, Color, Double-sided, Full bleed)
+
+### CSS Design System Reference
+- Colors: `--primary-navy`, `--primary-blue`, `--success-green`, `--gray-*` (50-900)
+- Spacing: `--space-xs` to `--space-3xl` (4px to 64px)
+- Shadows: `--shadow-sm` to `--shadow-2xl`
+- Transitions: `--transition-fast/base/slow`
+- Animations: `bubbleEntrance`, `priceUpdate`, `cartPulse`, `celebration-popup`, etc.
+
+### Important Reminders
+- **Special text paper pricing** (20lb/28lb) only applies to 8.5x11 size
+- **Scan mode** (`currentScanMode` variable) affects standard scanning calculations
+- **Cart integration** missing for Business Cards calculator
+- **Session-only cart** - clears on page refresh
+- **Easter egg unlocks** price logger export functionality
